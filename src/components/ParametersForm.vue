@@ -23,7 +23,7 @@ const param_data = reactive(defaultParams);
 			<td class="parameter-label">
 				{{ parameter.label }}
 			</td>
-			<td>
+			<td :class="[ 'parameter-value', `parameter-value-${parameter.type}`]" valign="middle">
 				<q-checkbox v-if="parameter.type == 'boolean'"
 					v-model="param_data[parameter.name]"
 				/>
@@ -67,6 +67,11 @@ const param_data = reactive(defaultParams);
 	border-bottom-left-radius: 0px !important;
 	border-bottom-right-radius: 0px !important;
 }
+
+.q-slider__track-container--h {
+	padding: 16px 6px;
+}
+
 </style>
 
 <style scoped>
@@ -79,11 +84,30 @@ const param_data = reactive(defaultParams);
 	text-align: left;
 }
 
+.parameters-row > * {
+	height: 42px;
+}
+
 .parameter-label {
 	font-weight: bold;
 	text-align: right;
-	padding: 10px;
+	padding: 5px;
 }
+
+.parameter-value {
+	padding: 0px;
+	padding-left: 10px;
+}
+
+.parameter-value-boolean {
+	padding-left: 5px;
+}
+
+.parameter-value-integer,
+.parameter-value-float {
+	display: flex;
+}
+
 </style>
 
 <script>
