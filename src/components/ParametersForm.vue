@@ -9,30 +9,30 @@ const props = defineProps({
 const defaultParams = {};
 props.parameters.forEach(param => {
 	defaultParams[param.name] = param.default;
-	if (param.type == "enum") {
-		defaultParams[param.name] = param.options.find(opt => opt.value == param.default);
-	}
+	// if (param.type == "enum") {
+	// 	defaultParams[param.name] = param.options.find(opt => opt.value == param.default);
+	// }
 });
 const param_data = reactive(defaultParams);
 
 </script>
 
 <template>
-	<div class="parameters-container">
-		<div class="parameters-row" v-for="parameter in parameters" >
-			<q-checkbox v-if="parameter.type == 'boolean'"
-				v-model="param_data[parameter.name]"
-				:label="parameter.label"
-			/>
-			<div v-if="parameter.type != 'boolean'">
-				<span class="parameter-label">
-					{{ parameter.label }}
-				</span>
+	<table class="parameters-container">
+		<tr class="parameters-row" v-for="parameter in parameters" >
+			<td class="parameter-label">
+				{{ parameter.label }}
+			</td>
+			<td>
+				<q-checkbox v-if="parameter.type == 'boolean'"
+					v-model="param_data[parameter.name]"
+				/>
 				<q-select v-if="parameter.type == 'enum'"
 					v-model="param_data[parameter.name]"
 					:options="parameter.options"
 
-					filled outlined
+					emit-value map-options
+					filled
 					dense
 					options-dense
 				/>
@@ -53,14 +53,23 @@ const param_data = reactive(defaultParams);
 					thumb-size="30px"
 					:step="0.001"
 				/>
-			</div>
-		</div>
-		{{ param_data.material }}
-	</div>
+			</td>
+		</tr>
+	</table>
 </template>
 
-<style scoped>
+<style>
+.q-field__control:not(:hover) {
+	border-bottom-left-radius: 4px !important;
+	border-bottom-right-radius: 4px !important;
+}
+.q-field--highlighted .q-field__control {
+	border-bottom-left-radius: 0px !important;
+	border-bottom-right-radius: 0px !important;
+}
+</style>
 
+<style scoped>
 .parameters-container {
 	max-width: 400px;
 }
@@ -72,8 +81,9 @@ const param_data = reactive(defaultParams);
 
 .parameter-label {
 	font-weight: bold;
+	text-align: right;
+	padding: 10px;
 }
-
 </style>
 
 <script>
