@@ -12,13 +12,24 @@
 </html>
 <script type="module">
 
-import './base.css'
+// import quasar stuff, generate from: https://quasar.dev/start/vite-plugin
+import { Quasar } from "quasar"
+import "@quasar/extras/material-icons/material-icons.css"
+import "quasar/src/css/index.sass"
 
-import { createApp } from 'vue'
-import App from './App.vue'
+import "./base.css"
+
+import { createApp } from "vue"
+import App from "./App.vue"
 
 const app = createApp(App)
 
-app.mount('#vueapp');
+app.use(Quasar, {
+	plugins: {},
+	config: {
+		dark: "auto"
+	}
+});
+app.mount("#vueapp");
 
 </script>

@@ -1,0 +1,132 @@
+[
+	{
+		"name": "recursion_level",
+		"label": "Polygon Count",
+		"type": "integer",
+		"min": 1,
+		"max": 6,
+		"default": 6
+	},
+	{
+		"name": "elevation_scale",
+		"label": "Elevation Scale",
+		"type": "integer",
+		"min": 1,
+		"max": 800,
+		"default": 400
+	},
+	{
+		"name": "compute_vertex_normals",
+		"label": "Use Vertex Normals",
+		"type": "boolean",
+		"default": false
+	},
+	{
+		"name": "render_globe_interior",
+		"label": "Render Globe Interior",
+		"type": "boolean",
+		"default": false
+	},
+	{
+		"name": "triangle_coloring",
+		"label": "Triangle Coloring",
+		"type": "enum",
+		"default": "max",
+		"options": [
+			{
+				"value": "max",
+				"label": "Highest Vertex Color"
+			},
+			{
+				"value": "min",
+				"label": "Lowest Vertex Color"
+			},
+			{
+				"value": "avg",
+				"label": "Average Vertex Color"
+			},
+			{
+				"value": "all",
+				"label": "All Vertex Colors (gradient)"
+			}
+		]
+	},
+	{
+		"name": "color_gradient",
+		"label": "Color Gradient",
+		"type": "enum",
+		"default": "GMT_globe",
+		"options": [
+			{
+				"value": "GMT_globe",
+				"label": "Standard"
+			},
+			{
+				"value": "GMT_simple",
+				"label": "Simple"
+			},
+			{
+				"value": "GMT_dem4",
+				"label": "High Contrast"
+			},
+			{
+				"value": "GMT_sealand",
+				"label": "Relief"
+			},
+			{
+				"value": "GMT_topo",
+				"label": "Strange"
+			}
+		]
+	},
+	{
+		"name": "material",
+		"label": "Material",
+		"type": "enum",
+		"default": "lambert",
+		"options": [
+			{
+				"value": "lambert",
+				"label": "Lambert"
+			},
+			{
+				"value": "standard",
+				"label": "Standard"
+			},
+			{
+				"value": "basic",
+				"label": "Basic"
+			}
+		]
+	},
+	{
+		"name": "rotation",
+		"label": "Rotation",
+		"type": "boolean",
+		"default": false
+	},
+	{
+		"name": "ambient_light_intensity",
+		"label": "Ambient Light",
+		"type": "float",
+		"min": 0,
+		"max": 1,
+		"default": 0.25
+	},
+	{
+		"name": "camera_light_intensity",
+		"label": "Camera Light",
+		"type": "float",
+		"min": 0,
+		"max": 1,
+		"default": 1
+	},
+	{
+		"name": "sunlight_intensity",
+		"label": "Sunlight",
+		"type": "float",
+		"min": 0,
+		"max": 1,
+		"default": 0
+	}
+]

@@ -1,21 +1,32 @@
 <script setup>
 
-import ExampleComponent from './components/ExampleComponent.vue'
-import data from './assets/test.json'
+import { ref } from "vue"
+import ParametersForm from "./components/ParametersForm.vue"
+import example_data from "/assets/example_parameters.json"
 
 </script>
 
 <template>
-	<div>
-		<a href="https://vuejs.org/" target="_blank">
+	<div id="demoapp">
+		<!-- <a href="https://vuejs.org/" target="_blank">
 			<img src="./assets/fizzgig.svg" alt="Self thing" />
-		</a>
+		</a> -->
+		<h2>Example Parameters</h2>
+		<ParametersForm :parameters="example_data" />
 	</div>
-	<ExampleComponent msg="Webapp Template" />
 </template>
 
 <script>
 
-console.log(data.examplestuff);
+
+
 
 </script>
+
+<style scoped>
+
+#demoapp {
+	padding: 50px;
+}
+
+</style>
