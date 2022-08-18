@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/quasar@2.7.7/dist/quasar.prod.css" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <!-- example of injection point where you write your app template -->
+    <div id="vueapp">
+      <div id="container">
+		  {{ thing1 }}
+		<ExampleComponent msg="Webapp Template"></ExampleComponent>
+      </div>
+    </div>
+
+    <!-- Add the following at the end of your body tag -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/quasar@2.7.7/dist/quasar.umd.prod.js"></script> -->
+	
+    <script src="build/dillerm.umd.js"></script>
+    
+
+<style>
+#container { 
+  margin: auto;
+  padding-top: 10px;
+  max-width: 400px;
+}
+</style>
+<script>
+
+console.log(dillerm);
+/*
+  Example kicking off the UI. Obviously, adapt this to your specific needs.
+  Assumes you have a <div id="vueapp"></div> in your <body> above
+  */
+const app = Vue.createApp({
+  setup () {
+    return {}
+  },
+  data() {
+    return {
+      thing1: false,
+      selected_item: null,
+      options: [
+        { "label": "<span class=\"text-primary text-bold text-underline\">Goo</span>gle", "value": "Google" },
+        { "label": "<span class=\"text-primary text-bold text-underline\">Not The</span> Google", "value": "otherthing" }
+      ]
+    }
+  },
+  methods: {
+    filterFn(val, update) {
+      if (val === '') {
+        update(() => {
+          this.options = [
+            { "label": "<span class=\"text-primary text-bold text-underline\">Goo</span>gle", "value": "Google" },
+            { "label": "<span class=\"text-primary text-bold text-underline\">Not The</span> Google", "value": "otherthing" }
+          ]
+        })
+        return
+      }
+
+      update(() => {
+        this.options = [
+          { "label": "<span class=\"text-primary text-bold text-underline\">hello Goo</span>gle", "value": "Google" },
+          { "label": "<span class=\"text-primary text-bold text-underline\">hello Not The</span> Google", "value": "otherthing" }
+        ]
+      })
+    }
+  }
+});
+// app.component("ExampleComponent", dillerm.ExampleComponent);
+app.use(dillerm);
+// app.use(Quasar, {
+//   config: {
+//     dark: 'auto'
+//   }
+// });
+app.mount('#vueapp');
+
+
+</script>
+
+  </body>
+</html>

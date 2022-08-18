@@ -1,0 +1,14 @@
+body {
+	font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
+	margin: 0;
+}
+
+#vueapp {
+	background-color: #242424;
+	max-width: 1000px;
+	margin: auto;
+	text-align: center;
+}
+
