@@ -7,31 +7,35 @@ import NavBarSvgBackground from "./NavBarSvgBackground.vue";
 const nav_gradient = new ColorGradient(["#23272A", "#202225"]);
 // const nav_gradient = new ColorGradient(["#23272A", "#102225"]);
 
+
+const width = ref(2000);
+
 </script>
 
 <template>
 	<div id="dillermbar">
-		<div id="imgcontainer">
-			<img src="assets/fizzgig.svg" width="64" height="64" />
-		</div>
 		<NavBarSvgBackground
-			:width="900"
+			:width="width"
 			:height="70"
 			:color_gradient="nav_gradient"
 			:triangle_count_y="3"
 			:drift_amount="0.3"/>
+		<div id="imgcontainer">
+			<img src="assets/fizzgig.svg" width="64" height="64" />
+		</div>
 	</div>
 </template>
 
 <style scoped>
 
 #dillermbar {
-	height: 70px;
+	height: var(--navbar-height);
 	/* background-image: url("/assets/lowpoly.svg");
 	background-repeat: repeat; */
 }
 
 #imgcontainer {
+	position: relative;
 	width: 64px;
 	height: 64px;
 	margin: auto;

@@ -115,7 +115,10 @@ watch([max_x, max_y, triangle_size, () => props.drift_amount], () => {
 
 <style scoped>
 svg {
-	position: absolute;
+	position: fixed;
+	height: var(--navbar-height);
 	left: 0px;
+	right: 0px;
+	top: 0px;
 }
 </style>

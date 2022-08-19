@@ -1,13 +1,17 @@
+:root {
+	--navbar-height: 70px;
+	--background-color: #363636;
+}
+
 body,
 html {
 	font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424 !important;
+	background-color: var(--background-color) !important;
 	margin: 0;
 }
 
 #vueapp {
-	background-color: #242424;
 	max-width: 1000px;
 	margin: auto;
 }
