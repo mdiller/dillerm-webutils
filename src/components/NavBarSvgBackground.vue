@@ -10,6 +10,7 @@ const props = defineProps({
 	color_gradient: ColorGradient
 });
 
+const ANIMATE = true;
 const FRAME_COUNT = 5;
 const KEEP_BASE_STRAIGHT = true;
 const TRIANGLE_RATIO = 2 / Math.sqrt(3);
@@ -53,13 +54,19 @@ function generateVertices() {
 					drift_func_y = () => ((DRIFT_AMOUNT * 2) * Math.random()) - DRIFT_AMOUNT;
 				}
 			}
-			for (let i = 0; i < FRAME_COUNT; i++) { 
-				frames.push({
-					x: (x_pos + drift_func_x()) * triangle_size.value,
-					y: (y_pos + drift_func_y()) * triangle_size.value
-				});
+			if (ANIMATE) {
+				for (let i = 0; i < FRAME_COUNT; i++) { 
+					frames.push({
+						x: (x_pos + drift_func_x()) * triangle_size.value,
+						y: (y_pos + drift_func_y()) * triangle_size.value
+					});
+				}
+				frames.push(frames[0]);
 			}
-			frames.push(frames[0]);
+			else {
+				x_pos += drift_func_x();
+				y_pos += drift_func_y();
+			}
 			
 			_anim_frames.push(frames)
 			_vertices.push({
@@ -73,7 +80,6 @@ function generateVertices() {
 }
 
 function generateTriangles() {
-	console.log(max_y.value, max_x.value);
 	var _triangles = [];
 	var _colors = [];
 	for (var y = 0; y < max_y.value - 1; y++) {
@@ -132,7 +138,8 @@ watch([max_x, max_y, triangle_size, () => DRIFT_AMOUNT], () => {
 
 <style scoped>
 svg {
-	position: fixed;
+	position: absolute;
+	overflow: hidden;
 	height: var(--navbar-height);
 	left: 0px;
 	right: 0px;

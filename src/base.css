@@ -1,6 +1,6 @@
 :root {
 	--navbar-height: 70px;
-	--background-color: #363636;
+	--background-color: #303030;
 }
 
 body,
@@ -9,10 +9,5 @@ html {
 	color: rgba(255, 255, 255, 0.87);
 	background-color: var(--background-color) !important;
 	margin: 0;
-}
-
-#vueapp {
-	max-width: 1000px;
-	margin: auto;
 }
 

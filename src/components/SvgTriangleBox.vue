@@ -41,7 +41,7 @@ const svgTriangles = computed(() => {
 			:points="triangle.points"
 			:style="{ fill: triangle.color, stroke: triangle.color }"
 		>
-			<animate attributeName="points" :values="triangle.frames" dur="20s" repeatCount="indefinite" />
+			<animate attributeName="points" :values="triangle.frames" dur="7s" repeatCount="indefinite" />
 		</polygon>
 	</svg>
 </template>
