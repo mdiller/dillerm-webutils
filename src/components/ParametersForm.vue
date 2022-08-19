@@ -56,6 +56,7 @@ const param_data = reactive(defaultParams);
 			</td>
 		</tr>
 	</table>
+	<!-- <img src="assets/lowpoly.png" /> -->
 </template>
 
 <style>

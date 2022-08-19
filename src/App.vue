@@ -2,17 +2,19 @@
 
 import { ref } from "vue"
 import ParametersForm from "./components/ParametersForm.vue"
+import DillermNavBar from "./components/DillermNavBar.vue"
 import example_data from "/assets/example_parameters.json"
+
+
 
 </script>
 
 <template>
+	<DillermNavBar />
 	<div id="demoapp">
-		<!-- <a href="https://vuejs.org/" target="_blank">
-			<img src="./assets/fizzgig.svg" alt="Self thing" />
-		</a> -->
-		<h2>Example Parameters</h2>
+		<h3>Example Parameters</h3>
 		<ParametersForm :parameters="example_data" />
+		
 	</div>
 </template>
 
@@ -26,7 +28,9 @@ import example_data from "/assets/example_parameters.json"
 <style scoped>
 
 #demoapp {
+	max-width: 600px;
 	padding: 50px;
+	margin: auto;
 }
 
 </style>
