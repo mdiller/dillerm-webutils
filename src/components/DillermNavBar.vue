@@ -4,6 +4,11 @@ import { ref, computed } from 'vue'
 import { ColorGradient } from "../utils.js"
 import NavBarSvgBackground from "./NavBarSvgBackground.vue";
 
+const props = defineProps({
+	github_url: String
+})
+
+
 const nav_gradient = new ColorGradient(["#23272A", "#202225"]);
 // const nav_gradient = new ColorGradient(["#23272A", "#102225"]);
 
@@ -24,7 +29,7 @@ const width = ref(2500);
 		<div class="icon icon-right">
 			<img src="assets/gear.svg" />
 		</div>
-		<a href="http://dillerm.io" class="icon icon-left">
+		<a v-if="github_url" :href="github_url" class="icon icon-left">
 			<img src="assets/github.svg" />
 			<q-tooltip 
 				class="bg-grey-10 text-subtitle1 text-weight-bold"

@@ -10,7 +10,8 @@ import example_data from "/assets/example_parameters.json"
 </script>
 
 <template>
-	<DillermNavBar />
+	<DillermNavBar
+		github_url="https://github.com/mdiller/" />
 	<div id="demoapp">
 		<h3>Example Parameters</h3>
 		<ParametersForm :parameters="example_data" />
