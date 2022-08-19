@@ -7,12 +7,13 @@ const props = defineProps({
 	width: Number,
 	height: Number,
 	triangle_count_y: Number,
-	drift_amount: Number,
 	color_gradient: ColorGradient
 });
 
+const FRAME_COUNT = 5;
 const KEEP_BASE_STRAIGHT = true;
 const TRIANGLE_RATIO = 2 / Math.sqrt(3);
+const DRIFT_AMOUNT = 0.4;
 
 const triangle_size = computed(() => props.height / props.triangle_count_y);
 
@@ -23,12 +24,14 @@ function coordToVertIndex(x, y) {
 	return (y * max_x.value) + x;
 }
 
+const vertex_anim_frames = ref([]);
 const vertices = ref([]);
 const triangles = ref([]);
 const triangle_colors = ref([]);
 
 function generateVertices() {
 	var _vertices = [];
+	var _anim_frames = [];
 	for (let y = 0; y < max_y.value; y++) { 
 		for (let x = 0; x < max_x.value; x++) {
 			var x_pos = x;
@@ -37,22 +40,35 @@ function generateVertices() {
 				x_pos -= 0.5;
 			}
 			x_pos *= TRIANGLE_RATIO;
+			var frames = [];
+	
+			var drift_func_y = () => 0;
+			var drift_func_x = () => 0;
 			// add drift
-			if (props.drift_amount != 0 && y != 0) {
+			if (DRIFT_AMOUNT != 0 && y != 0) {
 				if (x != 0) {
-					x_pos += ((props.drift_amount * 2) * Math.random()) - props.drift_amount;
+					drift_func_x = () => ((DRIFT_AMOUNT * 2) * Math.random()) - DRIFT_AMOUNT;
 				}
 				if (y != 0 && !(KEEP_BASE_STRAIGHT && y == max_y.value - 1)) {
-					y_pos += ((props.drift_amount * 2) * Math.random()) - props.drift_amount;
+					drift_func_y = () => ((DRIFT_AMOUNT * 2) * Math.random()) - DRIFT_AMOUNT;
 				}
 			}
-
+			for (let i = 0; i < FRAME_COUNT; i++) { 
+				frames.push({
+					x: (x_pos + drift_func_x()) * triangle_size.value,
+					y: (y_pos + drift_func_y()) * triangle_size.value
+				});
+			}
+			frames.push(frames[0]);
+			
+			_anim_frames.push(frames)
 			_vertices.push({
 				x: x_pos * triangle_size.value,
 				y: y_pos * triangle_size.value
 			});
 		}
 	}
+	vertex_anim_frames.value = _anim_frames;
 	vertices.value = _vertices;
 }
 
@@ -94,7 +110,7 @@ function generateTriangles() {
 	triangle_colors.value = _colors;
 }
 
-watch([max_x, max_y, triangle_size, () => props.drift_amount], () => {
+watch([max_x, max_y, triangle_size, () => DRIFT_AMOUNT], () => {
 	generateVertices();
 	generateTriangles();
 }, {
@@ -110,6 +126,7 @@ watch([max_x, max_y, triangle_size, () => props.drift_amount], () => {
 		:vertices="vertices"
 		:triangles="triangles"
 		:triangle_colors="triangle_colors"
+		:vertex_anim_frames="vertex_anim_frames"
 	/>
 </template>
 

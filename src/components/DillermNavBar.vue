@@ -18,8 +18,7 @@ const width = ref(2000);
 			:width="width"
 			:height="70"
 			:color_gradient="nav_gradient"
-			:triangle_count_y="3"
-			:drift_amount="0.3"/>
+			:triangle_count_y="3"/>
 		<div id="imgcontainer">
 			<img src="assets/fizzgig.svg" width="64" height="64" />
 		</div>
