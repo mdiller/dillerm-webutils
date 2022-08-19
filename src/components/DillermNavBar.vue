@@ -23,11 +23,17 @@ const width = ref(2500);
 			:height="70"
 			:color_gradient="nav_gradient"
 			:triangle_count_y="3"/>
-		<div id="logocontainer">
+		<div class="logo-container">
 			<img src="assets/fizzgig.png" />
 		</div>
 		<div class="icon icon-right">
 			<img src="assets/gear.svg" />
+		</div>
+		<div class="logo-text logo-text-left">
+			DILLERM
+		</div>
+		<div class="logo-text logo-text-right">
+			TOOLS
 		</div>
 		<a v-if="github_url" :href="github_url" class="icon icon-left">
 			<img src="assets/github.svg" />
@@ -56,7 +62,8 @@ const width = ref(2500);
 	box-shadow: 0 0 10px 3px #202225;
 }
 
-#logocontainer {
+.logo-container {
+	z-index: 2000;
 	position: relative;
 	padding-top: 3px;
 	width: 64px;
@@ -66,11 +73,11 @@ const width = ref(2500);
 	transition: all 0.5s ease-in-out;
 }
 
-#logocontainer > img {
+.logo-container > img {
 	width: 100%;
 }
 
-#logocontainer:hover {
+.logo-container:hover {
 	transform: scale(115%);
 	filter: drop-shadow(0px 0px 4px #C67F41);
 }
@@ -88,6 +95,31 @@ const width = ref(2500);
 }
 .icon-left {
 	left: 0px;
+}
+
+.logo-text {
+	transition: all 0.5s ease;
+	opacity: 0%;
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	height: var(--navbar-height);
+	line-height: var(--navbar-height);
+	color: #C67F41;
+	font-weight: bold;
+	font-size: 16px;
+	font-family: 'Consolas', 'Courier New', Courier, monospace
+}
+.logo-text-left {
+	transform: translateX(-100%);
+	padding-right: 45px;
+}
+.logo-text-right {
+	padding-left: 45px;
+}
+
+.logo-container:hover ~ .logo-text {
+	opacity: 75%;
 }
 
 path {
