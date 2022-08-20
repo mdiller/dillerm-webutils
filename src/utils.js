@@ -25,6 +25,9 @@ function getColorFromGradient(percent, gradient) {
 		gradient = [ gradient[0], gradient[0] ]
 	}
 	var index = Math.floor((percent * (gradient.length - 1)) - 0.0001);
+	if (index < 0) {
+		index = 0;
+	}
 	var min_color_rgb = hexToRgb(gradient[index]);
 	var max_color_rgb = hexToRgb(gradient[index + 1]);
 	var adjusted_percent = (percent - index * (1 / (gradient.length - 1))) * (gradient.length - 1);

@@ -1,15 +1,17 @@
-import { resolve } from 'path'
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
+import { resolve } from "path"
+import { defineConfig } from "vite"
+import vue from "@vitejs/plugin-vue"
+import svgLoader from "vite-svg-loader"
+import { quasar, transformAssetUrls } from "@quasar/vite-plugin"
 
-/** @type {import('vite').UserConfig} */
+/** @type {import("vite").UserConfig} */
 export default defineConfig({
 	plugins: [
 		vue({
 			template: { transformAssetUrls }
 		}),
-		quasar()
+		quasar(),
+		svgLoader()
 	],
 	root: "src",
 	define: {
@@ -19,7 +21,7 @@ export default defineConfig({
 		outDir: resolve(__dirname, "build"),
 		emptyOutDir: true,
 		lib: {
-			entry: resolve(__dirname, "src/components/index.js"),
+			entry: resolve(__dirname, "src/index.js"),
 			name: "dillerm",
 			fileName: (format) => `dillerm.${format}.js`,
 		}

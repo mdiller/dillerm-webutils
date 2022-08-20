@@ -77,7 +77,7 @@ const param_data = reactive(defaultParams);
 
 <style scoped>
 .parameters-container {
-	max-width: 400px;
+	width: 100%;
 }
 
 .parameters-row {
@@ -98,6 +98,7 @@ const param_data = reactive(defaultParams);
 .parameter-value {
 	padding: 0px;
 	padding-left: 10px;
+	min-width: 250px;
 }
 
 .parameter-value-boolean {

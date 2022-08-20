@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link href="build/style.css" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <!-- example of injection point where you write your app template -->
+	<div id="navbar"></div>
+	<div id="container">
+		Example text here
+	</div>
+	
+    <script src="build/dillerm.umd.js"></script>
+    
+
+<style>
+#container { 
+  margin: auto;
+  padding-top: 10px;
+  max-width: 400px;
+}
+</style>
+<script>
+
+dillerm.setup("#navbar");
+
+console.log("example stuff");
+
+
+</script>
+
+  </body>
+</html>

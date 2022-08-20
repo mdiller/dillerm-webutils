@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-defineProps({
+const props = defineProps({
 	msg: String
 })
 
