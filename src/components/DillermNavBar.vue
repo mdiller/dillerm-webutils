@@ -16,7 +16,7 @@ const props = defineProps({
 
 const nav_gradient = new ColorGradient(["#23272A", "#202225"]);
 
-const show_config = ref(false);
+const show_config = ref(true);
 
 </script>
 
@@ -42,23 +42,23 @@ const show_config = ref(false);
 		</div>
 		<a v-if="github_url" :href="github_url" class="dillerm-icon dillerm-icon-left">
 			<img :src="github_svg_url" />
-			<q-tooltip
+			<!-- <q-tooltip
 				class="dillerm-tooltip"
 				anchor="center right" self="center left"
 				transition-show="jump-right"
 				transition-hide="jump-left">
 				VIEW SOURCE
-			</q-tooltip>
+			</q-tooltip> -->
 		</a>
 		<div @click="show_config = !show_config" class="dillerm-icon dillerm-icon-right config-gear">
 			<img :src="gear_svg_url" :class="{ 'spun-gear': show_config }" />
-			<q-tooltip
+			<!-- <q-tooltip
 				class="dillerm-tooltip"
 				anchor="center left" self="center right"
 				transition-show="jump-left"
 				transition-hide="jump-right">
 				CONFIGURATION
-			</q-tooltip>
+			</q-tooltip> -->
 		</div>
 	</div>
 </template>

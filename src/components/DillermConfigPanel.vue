@@ -31,6 +31,7 @@ h4 {
 	max-width: 600px;
 	height: 100%;
 	background-color: #202225;
+	/* background-color: #36393f; */
 	color: #FFFFFF;
 	opacity: 0.9;
 

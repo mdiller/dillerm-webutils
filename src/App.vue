@@ -18,7 +18,6 @@ const config = ref({
 	<div id="content">
 		<h3>Example Parameters!!</h3>
 		hello there 123
-		
 	</div>
 </template>
 

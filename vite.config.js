@@ -10,7 +10,6 @@ export default defineConfig({
 		vue({
 			template: { transformAssetUrls }
 		}),
-		quasar(),
 		svgLoader()
 	],
 	root: "src",
@@ -19,12 +18,7 @@ export default defineConfig({
 	},
 	build: {
 		outDir: resolve(__dirname, "build"),
-		emptyOutDir: true,
-		lib: {
-			entry: resolve(__dirname, "src/index.js"),
-			name: "dillerm",
-			fileName: (format) => `dillerm.${format}.js`,
-		}
+		emptyOutDir: true
 	},
 	rollupOptions: {
 		external: ["vue"],
