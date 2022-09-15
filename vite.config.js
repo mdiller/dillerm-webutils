@@ -18,7 +18,12 @@ export default defineConfig({
 	},
 	build: {
 		outDir: resolve(__dirname, "build"),
-		emptyOutDir: true
+		emptyOutDir: true,
+		lib: {
+			entry: resolve(__dirname, "src/index.js"),
+			name: "DillermWebUtils",
+			fileName: (format) => `dillerm.${format}.js`,
+		}
 	},
 	rollupOptions: {
 		external: ["vue"],

@@ -1,0 +1,181 @@
+:root {
+	// from old base.css
+	--navbar-height: 70px;
+	--background-color: #303030;
+	--orange-color: #C67F41;
+
+	// --input-background: #313339;
+	--input-background-hue: 225;
+	--input-background-saturation: 8%;
+	--input-background: hsl(var(--input-background-hue), var(--input-background-saturation), 21%);
+	// --input-color: #f6f6f7;
+
+	// --input-border-color: #2d2f35;
+	--input-border-color: hsl(var(--input-background-hue), var(--input-background-saturation), 19%);
+	--input-border-style: solid;
+	--input-border-size: 2px;
+	--input-border-radius: 5px;
+
+	--input-color: hsl(var(--input-background-hue), var(--input-background-saturation), 97%);
+	--options-hover: var(--input-border-color);
+
+	--input-padding-tb: 6px; /* 4px 8px */
+	--input-padding-rl: 10px;
+	--input-height: 40px; /* 26px (if you go over 32, select button on ff doesnt look nice) */
+	--input-transition-time: 0.5s; /* 26px (if you go over 32, select button on ff doesnt look nice) */
+
+
+	--input-highlight-color: #387ad1;
+	--input-hover-color: var(--input-border-color);
+
+	--form-background: #36393f;
+
+	--label-color: #b9bbbe;
+	--heading-color: #f0f0f0;
+
+	--input-font-family: Inter, Avenir, Helvetica, Arial, sans-serif; 
+	--input-font-size: 14px; 
+	
+	--input-numerical-font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+	--input-numerical-font-size: 12px; 
+}
+
+/* this is so that I can make the actual css variables more specific */
+$input-border-color: var(--input-border-color);
+$input-border-style: var(--input-border-style);
+$input-border-size: var(--input-border-size);
+$input-border-radius: var(--input-border-radius);
+$input-padding-rl: var(--input-padding-rl);
+$input-padding-tb: var(--input-padding-tb);
+$input-height: var(--input-height);
+$input-background: var(--input-background);
+$input-color: var(--input-color);
+$options-hover: var(--options-hover);
+$form-background: var(--form-background);
+$label-color: var(--label-color);
+$heading-color: var(--heading-color);
+$input-highlight-color: var(--input-highlight-color);
+$input-hover-color: var(--input-hover-color);
+$input-transition-time: var(--input-transition-time);
+
+$input-border: $input-border-size $input-border-style $input-border-color;
+$input-padding: $input-padding-tb $input-padding-rl;
+$input-line-height: calc(#{$input-height} - (#{$input-padding-tb} * 2) - (#{$input-border-size} * 2));
+
+$input-font-family: var(--input-font-family);
+$input-font-size: var(--input-font-size);
+$input-numerical-font-family: var(--input-numerical-font-family);
+$input-numerical-font-size: var(--input-numerical-font-size);
+
+// A couple global settings we want
+* {
+	box-sizing: border-box;
+}
+
+body,
+html {
+	color: $input-color;
+	background-color: var(--background-color);
+	margin: 0;
+}
+
+#content {
+	max-width: 600px;
+	padding: 50px;
+	margin: auto;
+}
+
+// the main stuff
+.dillerm {
+	font-family: $input-font-family;
+	font-size: $input-font-size;
+
+	.invalid {
+		box-shadow: 0 0 5px red inset;
+	}
+}
+
+.dillerm-control {
+	input:focus {
+		outline: none;
+	}
+	
+	input {
+		transition: background $input-transition-time;
+	}
+}
+
+$tooltip-fade-amount: 15%;
+
+.dillerm-tooltip {
+	color: $input-color;
+	border-radius: 3px;
+	font-weight: bold;
+	font-family: $input-numerical-font-family;
+	font-size: 16px;
+
+	visibility: hidden;
+	opacity: 0;
+	position: absolute;
+	white-space: nowrap;
+	padding: 8px 12px;
+	transition: 0.3s all;
+	
+	:hover > & {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	/* position specific */
+	&.right {
+		right: 0px;
+		top: 50%;
+		transform: translate(calc(100% - $tooltip-fade-amount), -50%);
+		:hover > & {
+			transform: translate(100%, -50%);
+		}
+	}
+
+	&.top {
+		top: 0px;
+		left: 50%;
+		transform: translate(-50%, calc(-100% + $tooltip-fade-amount));
+		:hover > & {
+			transform: translate(-50%, -100%);
+		}
+	}
+
+	&.left {
+		left: 0px;
+		top: 50%;
+		transform: translate(calc(-100% + $tooltip-fade-amount), -50%);
+		:hover > & {
+			transform: translate(-100%, -50%);
+		}
+	}
+
+	&.bottom {
+		bottom: 0px;
+		left: 50%;
+		transform: translate(-50%, calc(100% - $tooltip-fade-amount));
+		:hover > & {
+			transform: translate(-50%, 100%);
+		}
+	}
+
+	// Arrow-stuff
+	// &::after {
+	// 	content: " ";
+	// 	position: absolute;
+	// 	border-width: 5px;
+	// 	border-style: solid;
+	// }
+
+	// /* position specific */
+	// &::after {
+	// 	top: 50%;
+	// 	right: 100%;
+	// 	border-color: transparent #222 transparent transparent;
+	// 	margin-top: -5px;
+	// }
+}

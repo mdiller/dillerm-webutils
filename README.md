@@ -72,6 +72,7 @@ This is a list of existing or planned projects that will benifit from this libra
 ## Dotabase (https://github.com/mdiller/dotabase-web and https://github.com/mdiller/old-dotabase-web)
 - split this project into two parts
   - vpk viewer/hoster (not connected to dillerm/webutils, mebbe host as dotavpk.dillerm.io)
+    - maybe also has a dotabase web api
   - a couple cool web utils (connected to dillerm/webutils)
     - searching for responses
     - searching for loadingscreens
@@ -101,3 +102,4 @@ This is a list of existing or planned projects that will benifit from this libra
 - other than that should be relatively straight-forward upgrade
 
 
+lo

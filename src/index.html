@@ -12,29 +12,14 @@
 </html>
 <script type="module">
 
-// import quasar stuff, generate from: https://quasar.dev/start/vite-plugin
 import { createApp } from "vue"
 
+import "./base.scss"
 
-// import { Quasar } from "quasar"
-// import quasarIconSet from "quasar/icon-set/svg-eva-icons"
-// import "@quasar/extras/eva-icons/eva-icons.css"
-// import "quasar/src/css/index.sass"
+import DemoPage from "./DemoPage.vue"
 
-import "./base.css"
-import "./pretty.scss"
+const app = createApp(DemoPage)
 
-import App from "./App.vue"
-
-const app = createApp(App)
-
-// app.use(Quasar, {
-// 	plugins: {},
-//     iconSet: quasarIconSet,
-// 	config: {
-// 		dark: "auto"
-// 	}
-// });
 app.mount("#vueapp");
 
 </script>

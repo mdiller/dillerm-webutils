@@ -2,7 +2,7 @@
 	<div 
 		@click="startEdit"
 		@focus="startEdit"
-		:class="{ 'select-search': true, focused: focused }">
+		class="dillerm dillerm-control dillerm-select">
 		<input
 			ref="input"
 			type="text"
@@ -13,7 +13,11 @@
 			@keyup.esc="endEdit"
 			:class="{ focused: focused }">
 		<span class="select-search-current" v-if="!focused && selected_option">
-			<img v-if="selected_option.icon" :src="selected_option.icon">
+			<img
+				class="option-icon"
+				v-if="selected_option.icon"
+				:src="selected_option.icon"
+				:style="selected_option.icon_style">
 			<span :class="{ noicon: !selected_option.icon }">
 				{{selected_option.label || placeholder}}
 			</span>
@@ -27,33 +31,37 @@
 				:class="{ 'select-search-option': true, hover: (index == hovered_option_index), noicon: !option.icon }"
 				@click.stop="selectOption(option)"
 				@mousedown.prevent>
-				<img v-if="option.icon" :src="option.icon">
+				<img
+					class="option-icon"
+					v-if="option.icon"
+					:src="option.icon"
+					:style="option.icon_style">
 				{{option.label}}
 			</div>
 		</div>
-		<svg 
+		<CrossIcon 
 			v-if="!focused && selected_option && nullable" 
 			@click.stop="selectOption(null)" 
-			class="select-search-clear" 
-			viewBox="0 0 24 24">
-			<path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z" />
-		</svg>
-		<svg
+			class="select-search-clear" />
+		<DownIcon
 			:class="{'select-search-down': true, expanded: focused }"
 			@mousedown.prevent.stop="!focused ? startEdit() : endEdit()"
 			@focus.stop
-			@click.stop
-			viewBox="0 0 24 24">
-			<path d="M12 16a1 1 0 0 1-.64-.23l-6-5a1 1 0 1 1 1.28-1.54L12 13.71l5.36-4.32a1 1 0 0 1 1.41.15 1 1 0 0 1-.14 1.46l-6 4.83A1 1 0 0 1 12 16z" />
-		</svg>
+			@click.stop />
 	</div>
 </template>
 
 <script>
+import CrossIcon from "../../assets/cross.svg?component";
+import DownIcon from "../../assets/down.svg?component";
 import { escapeRegex, debounce } from '../../utils.js';
 
 export default {
 	name: "dillerm-select",
+	components: {
+		CrossIcon,
+		DownIcon
+	},
 	props: {
 		value: {
 			required: true,
@@ -104,6 +112,11 @@ export default {
 						newoptions = newoptions.map(opt => { return { label: opt } });
 					}
 				}
+				newoptions.forEach(opt => {
+					if (opt.icon_style && !opt.icon) { // give it a transparent icon if we want to style it but we have no icon
+						opt.icon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAQAAAAnOwc2AAAAD0lEQVR42mNkwAIYh7IgAAVVAAuInjI5AAAAAElFTkSuQmCC"
+					}
+				})
 				return (input, callback) => {
 					if (input) {
 						var pattern = new RegExp(escapeRegex(input), "i");
@@ -209,13 +222,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import "../../pretty.scss";
+<style lang="scss">
+@import "../../base.scss";
 
-$button-icon-side-padding: 5px;
-$button-icon-size: 20px;
+$option-height: calc($input-height - (2 * $input-border-size));
 
-.select-search {
+.dillerm-select {
+	$button-icon-side-padding: 5px;
+	$button-icon-size: 20px;
+
 	& {
 		position: relative;
 		text-align: left;
@@ -254,7 +269,7 @@ $button-icon-size: 20px;
 	}
 
 	&:hover,
-	&.focused {
+	&:focus-within {
 		& > input {
 			background: $input-hover-color;
 		}
@@ -262,103 +277,117 @@ $button-icon-size: 20px;
 			fill: $input-highlight-color;
 		}
 	}
-}
-
-.select-search-current {
-	& {
-		pointer-events: none;
-		position: absolute;
-		left: $input-border-size;
-		top: $input-border-size;
-		right: $input-border-size;
-		bottom: $input-border-size;
-		border-radius: $input-border-radius;
-		white-space: nowrap;
-		overflow: hidden;
-	}
-
-	& img {
-		height: 100%;
-	}
-
-	& span {
-		position: absolute;
-		left: $input-height;
-		top: 0;
-		bottom: 0;
+	
+	input {
+		display: block;
 		padding: $input-padding;
-		line-height: $input-line-height;
+		width: 100%;
+		min-height: $input-height;
 
-		right: calc((#{$button-icon-size} * 2) + #{$button-icon-side-padding});
-		padding-right: 0px;
-		overflow: hidden;
-		text-overflow: ellipsis;
+		border: $input-border;
+		border-radius: $input-border-radius;
+		background: $input-background;
+		color: $input-color;
+		
+		&:hover,
+		&:focus {
+			background: $input-hover-color;
+		}
+	}
+
+	.option-icon {
+		height: 100%;
+		width: $option-height;
+		vertical-align: middle;
+		margin-right: $input-padding-rl;
+	}
+
+	.select-search-current {
+		& {
+			pointer-events: none;
+			position: absolute;
+			left: $input-border-size;
+			top: $input-border-size;
+			right: $input-border-size;
+			bottom: $input-border-size;
+			border-radius: $input-border-radius;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		& span {
+			position: absolute;
+			left: $input-height;
+			top: 0;
+			bottom: 0;
+			padding: $input-padding;
+			line-height: $input-line-height;
+
+			right: calc((#{$button-icon-size} * 2) + #{$button-icon-side-padding});
+			padding-right: 0px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+
+			&.noicon {
+				left: 0;
+			}
+		}
+	}
+	.select-search-option {
+		& {
+			float: left;
+			white-space: nowrap;
+			width: 100%;
+			height: $option-height;
+			cursor: pointer;
+			background: $input-background;
+			transition: 0.25s;
+		}
+
+		&:hover,
+		&.hover {
+			background: $options-hover;
+		}
 
 		&.noicon {
-			left: 0;
+			line-height: $option-height;
+			padding-left: 8px;
 		}
 	}
-}
-.select-search-option {
-	& {
-		float: left;
-		white-space: nowrap;
-		width: 100%;
-		height: 32px;
+
+	.select-search-status {
+		font-size: 14px;
+		padding: $input-padding;
+		line-height: $input-line-height;
+		color: #777777;
+	}
+
+	svg {
+		width: $button-icon-size;
+		height: $button-icon-size;
+		position: absolute;
+		top: calc((#{$input-height} - #{$button-icon-size}) / 2);
+		right: 0;
 		cursor: pointer;
-		background: $input-background;
+		fill: $input-color;
+		opacity: 0.75;
 		transition: 0.25s;
-	}
 
-	&:hover,
-	&.hover {
-		background: $options-hover;
-	}
+		&.select-search-down {
+			right: $button-icon-side-padding;
 
-	& img {
-		vertical-align: middle;
-		width: 32px;
-		height: 100%;
-	}
-
-	&.noicon {
-		line-height: 32px;
-		padding-left: 8px;
-	}
-}
-
-.select-search-status {
-	font-size: 14px;
-	padding: $input-padding;
-	line-height: $input-line-height;
-	color: #777777;
-}
-
-svg {
-	width: $button-icon-size;
-	height: $button-icon-size;
-	position: absolute;
-	top: calc((#{$input-height} - #{$button-icon-size}) / 2);
-	right: 0;
-	cursor: pointer;
-	fill: $input-color;
-	opacity: 0.75;
-	transition: 0.25s;
-
-	&.select-search-down {
-		right: $button-icon-side-padding;
-
-		&.expanded {
-			transform: rotate(180deg);
+			&.expanded {
+				transform: rotate(180deg);
+			}
 		}
-	}
 
-	&.select-search-clear {
-		right: calc(#{$button-icon-size} + #{$button-icon-side-padding});
+		&.select-search-clear {
+			right: calc(#{$button-icon-size} + #{$button-icon-side-padding});
 
-		&:hover {
-			fill: red;
-			opacity: 1;
+			&:hover {
+				fill: red;
+				opacity: 1;
+			}
 		}
 	}
 }

@@ -53,7 +53,7 @@ class ColorGradient {
 	}
 }
 
-function debounce(func, wait, immediate) {
+function debounce(func, wait_ms, immediate) {
 	var timeout;
 	return function() {
 		var context = this, args = arguments;
@@ -63,7 +63,7 @@ function debounce(func, wait, immediate) {
 		};
 		var callNow = immediate && !timeout;
 		clearTimeout(timeout);
-		timeout = setTimeout(later, wait);
+		timeout = setTimeout(later, wait_ms);
 		if (callNow) func.apply(context, args);
 	};
 }

@@ -9,9 +9,8 @@ import NavBarSvgBackground from "./NavBarSvgBackground.vue";
 import DillermConfigPanel from "./DillermConfigPanel.vue";
 
 const props = defineProps({
-	github_url: String,
 	config: Object
-})
+});
 
 
 const nav_gradient = new ColorGradient(["#23272A", "#202225"]);
@@ -24,8 +23,8 @@ const show_config = ref(true);
 	<DillermConfigPanel
 		v-if="config"
 		:show="show_config"
-		:parameters="config.parameters" />
-	<div id="dillermbar">
+		:config="config" />
+	<div class="dillerm dillerm-nav-bar">
 		<NavBarSvgBackground
 			:width="2500"
 			:height="70"
@@ -40,8 +39,11 @@ const show_config = ref(true);
 		<div class="logo-text logo-text-right">
 			TOOLS
 		</div>
-		<a v-if="github_url" :href="github_url" class="dillerm-icon dillerm-icon-left">
+		<a v-if="config.github_url" :href="config.github_url" class="dillerm-icon dillerm-icon-left">
 			<img :src="github_svg_url" />
+			<span class="dillerm-tooltip right">
+				VIEW SOURCE
+			</span>
 			<!-- <q-tooltip
 				class="dillerm-tooltip"
 				anchor="center right" self="center left"
@@ -52,114 +54,110 @@ const show_config = ref(true);
 		</a>
 		<div @click="show_config = !show_config" class="dillerm-icon dillerm-icon-right config-gear">
 			<img :src="gear_svg_url" :class="{ 'spun-gear': show_config }" />
-			<!-- <q-tooltip
-				class="dillerm-tooltip"
-				anchor="center left" self="center right"
-				transition-show="jump-left"
-				transition-hide="jump-right">
+			<span class="dillerm-tooltip left">
 				CONFIGURATION
-			</q-tooltip> -->
+			</span>
 		</div>
 	</div>
 </template>
 
-<style scoped>
+<style lang="scss">
 
-#dillermbar {
+.dillerm-nav-bar {
 	position: relative;
+	z-index: 1001;
 	overflow: hidden;
 	height: var(--navbar-height);
 	width: 100%;
 	/* background-image: url("/assets/lowpoly.svg");
 	background-repeat: repeat; */
 	background-color: #202225;
-}
-
-#dillermbar,
-.dillerm-app-name {
-	
 	box-shadow: 0 0 10px 3px #202225;
-}
 
-.logo-container {
-	transform: scale(100.1%); /* to prevent weirdness when we do a real scale */
-	z-index: 2000;
-	position: relative;
-	padding-top: 3px;
-	width: 64px;
-	height: 64px;
-	margin: auto;
-	cursor: grab;
-	transition: all 0.5s ease-in-out;
-}
+	.dillerm-app-name {
+		box-shadow: 0 0 10px 3px #202225;
+	}
 
-.logo-container > img {
-	width: 100%;
-}
+	.logo-container {
+		transform: scale(100.1%); /* to prevent weirdness when we do a real scale */
+		z-index: 2000;
+		position: relative;
+		padding-top: 3px;
+		width: 64px;
+		height: 64px;
+		margin: auto;
+		cursor: grab;
+		transition: all 0.5s ease-in-out;
+	}
 
-.logo-container:hover {
-	transform: scale(115%);
-	filter: drop-shadow(0px 0px 4px var(--orange-color));
-}
+	.logo-container > img {
+		width: 100%;
+	}
 
-.dillerm-icon {
-	position: absolute;
-	top: 0px;
-	padding: calc(0.25 * var(--navbar-height));
-	width: var(--navbar-height);
-	height: var(--navbar-height);
-}
+	.logo-container:hover {
+		transform: scale(115%);
+		filter: drop-shadow(0px 0px 4px var(--orange-color));
+	}
 
-.dillerm-icon-right {
-	right: 0px;
-}
-.dillerm-icon-left {
-	left: 0px;
-}
+	.dillerm-icon {
+		position: absolute;
+		top: 0px;
+		padding: calc(0.25 * var(--navbar-height));
+		width: var(--navbar-height);
+		height: var(--navbar-height);
+	}
 
-.logo-text {
-	transition: all 0.5s ease;
-	opacity: 0%;
-	position: absolute;
-	top: 0px;
-	left: 50%;
-	height: var(--navbar-height);
-	line-height: var(--navbar-height);
-	color: var(--orange-color);
-	font-weight: bold;
-	font-size: 16px;
-	font-family: 'Consolas', 'Courier New', Courier, monospace;
-}
-.logo-text-left {
-	transform: translateX(-100%);
-	padding-right: 45px;
-}
-.logo-text-right {
-	padding-left: 45px;
-}
+	.dillerm-icon-right {
+		right: 0px;
+	}
+	.dillerm-icon-left {
+		left: 0px;
+	}
 
-.logo-container:hover ~ .logo-text {
-	opacity: 75%;
-}
+	.logo-text {
+		transition: all 0.5s ease;
+		opacity: 0%;
+		position: absolute;
+		top: 0px;
+		left: 50%;
+		height: var(--navbar-height);
+		line-height: var(--navbar-height);
+		color: var(--orange-color);
+		font-weight: bold;
+		font-size: 16px;
+		font-family: 'Consolas', 'Courier New', Courier, monospace;
+	}
+	.logo-text-left {
+		transform: translateX(-100%);
+		padding-right: 45px;
+	}
+	.logo-text-right {
+		padding-left: 45px;
+	}
 
-.config-gear {
-	cursor: pointer;
-}
+	.logo-container:hover ~ .logo-text {
+		opacity: 75%;
+	}
 
-.config-gear > img {
-	transition: transform 0.5s ease-in-out;
-}
-.config-gear > img.spun-gear {
-	transform: rotate(180deg);
-}
+	.config-gear {
+		cursor: pointer;
+	}
 
-path {
-	transition: all 0.5s ease;
-}
+	.config-gear > img {
+		transition: transform 0.5s ease-in-out;
+	}
+	.config-gear > img.spun-gear {
+		transform: rotate(180deg);
+	}
 
-path:hover {
-	transform-origin: center;
-	/* transform: scale(120%); */
-	opacity: 20%;
+	path {
+		transition: all 0.5s ease;
+	}
+
+	path:hover {
+		transform-origin: center;
+		/* transform: scale(120%); */
+		opacity: 20%;
+	}
 }
 </style>

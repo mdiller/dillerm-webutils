@@ -1,5 +1,5 @@
 <template>
-	<div class="slider-input">
+	<div class="dillerm dillerm-control dillerm-slider">
 		<span class="slider-number">
 			{{ pretty_value }}
 			<!-- <input
@@ -77,7 +77,13 @@ export default {
 	},
 	computed: {
 		pretty_value() {
-			return this.value.toFixed(0);
+			var value = this.value;
+			if (this.is_percent) {
+				value = (((this.value - this.min) / (this.max - this.min)) * 100);
+				return `${Math.round(value)}%`
+			}
+			value = this.is_integer ? value.toFixed(0) : value.toFixed(2);
+			return value;
 		},
 		is_integer() {
 			return Number.isInteger(this.step) && Number.isInteger(this.min)
@@ -89,8 +95,11 @@ export default {
 	},
 	watch: {
 		val() {
-			this.$emit('update:value', this.val);
+			this.$emit('update:value', Number(this.val));
 			this.valid = true;
+		},
+		value() {
+			this.val = this.value;
 		}
 	},
 	methods: {
@@ -140,10 +149,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import "../../pretty.scss";
+<style lang="scss">
+@import "../../base.scss";
 
-.slider-input {
+.dillerm-slider {
 	position: relative;
 	& {
 		border: $input-border;
@@ -152,20 +161,28 @@ export default {
 		height: $input-height;
 		display: flex;
 		background: $input-background;
-		transition: background 0.5s;
+		transition: background $input-transition-time;
 	}
 
 	&:hover,
 	&:focus-within {
 		background: $input-hover-color;
+
+		.slider-bar-grabber {
+			background: $input-highlight-color !important;
+		}
 	}
 
 	span.slider-number {
 		line-height: calc($input-height - (2 * $input-border-size));
 		color: $input-color;
 		border-right: $input-border;
-		min-width: 50px;
-		padding: 0px 10px;
+		min-width: 46px;
+		padding: 0px 8px;
+		text-align: center;
+		
+		font-family: $input-numerical-font-family;
+		font-size: $input-numerical-font-size;
 	}
 	// input[type="number"] {
 	// 	min-width: 10px;
@@ -174,82 +191,82 @@ export default {
 	// 	border-style: none;
 	// 	min-height: calc($input-height - (2 * $input-border-size)) !important;
 	// }
-}
+	$grabber-width: 15px;
 
+	.slider-bar {
+		width: 100%;
+		display: table;
+		cursor: grab;
+		border-spacing: 0px;
 
-$grabber-width: 15px;
+		&.dragging {
+			cursor: grabbing;
 
-.slider-bar {
-	width: 100%;
-	display: table;
-	cursor: grab;
-	border-spacing: 0px;
+			.slider-bar-grabber {
+				transform: translateX(-50%) scale(110%);
+			}
+		}
 
-	&.dragging {
-		cursor: grabbing;
+		* {
+			user-select: none;
+			height: calc($input-height - (2 * $input-border-size));
+		}
+
+		span {
+			display: table-cell;
+		}
+
+		.slider-bar-prefix,
+		.slider-bar-postfix {
+			width: calc($grabber-width / 2) - 2px;
+		}
+
+		.slider-bar-prefix {
+			border-radius: $input-border-radius 0px 0px $input-border-radius;
+			background: $input-color;
+			opacity: 50%;
+		}
+		.slider-bar-postfix {
+			border-radius: 0px $input-border-radius $input-border-radius 0px;
+		}
+
+		.slider-bar-back {
+			position: relative;
+		}
+
+		.slider-bar-left {
+			position: absolute;
+			left: 0px;
+			width: 25%;
+			display: inline-block;
+			background: $input-color;
+			opacity: 50%;
+		}
+		.slider-bar-grabber {
+			position: absolute;
+			left: 25%;
+			width: $grabber-width;
+			border-radius: $input-border-radius;
+			transform: translateX(-50%);
+			display: inline-block;
+			background: $input-color;
+			transition: background $input-transition-time, transform 0.25s;
+		}
+		
 	}
 
-	* {
-		user-select: none;
-		height: calc($input-height - (2 * $input-border-size));
-	}
-
-	span {
-		display: table-cell;
-	}
-
-	.slider-bar-prefix,
-	.slider-bar-postfix {
-		width: calc($grabber-width / 2) - 2px;
-	}
-
-	.slider-bar-prefix {
-		border-radius: $input-border-radius 0px 0px $input-border-radius;
-		background: $input-color;
-		opacity: 50%;
-	}
-	.slider-bar-postfix {
-		border-radius: 0px $input-border-radius $input-border-radius 0px;
-	}
-
-	.slider-bar-back {
-		position: relative;
-	}
-
-	.slider-bar-left {
+	input[type="range"] {
 		position: absolute;
 		left: 0px;
-		width: 25%;
-		display: inline-block;
-		background: $input-color;
-		opacity: 50%;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 100%;
+		height: 10px;
+		z-index: -1000;
 	}
-	.slider-bar-grabber {
-		position: absolute;
-		left: 25%;
-		width: $grabber-width;
-		border-radius: $input-border-radius;
-		transform: translateX(-50%);
-		display: inline-block;
-		background: $input-color;
-	}
-	
 }
 
-.slider-input:hover .slider-bar-grabber,
-.slider-input:focus-within .slider-bar-grabber {
-	background: $input-highlight-color;
-}
 
-input[type="range"] {
-	position: absolute;
-	left: 0px;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 100%;
-	height: 10px;
-	z-index: -1000;
-	// display: none; // TODO: fix this to work for tabbing etc.
-}
+
 
 </style>

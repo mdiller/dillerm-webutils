@@ -1,5 +1,5 @@
 <template>
-	<div class="numerical-input">
+	<div class="dillerm dillerm-control dillerm-numerical">
 		<input :class="{ invalid: !valid }" type="number" v-model="val">
 		<span>
 			<div @click="tryChange(1)">
@@ -58,6 +58,9 @@ export default {
 			}
 			this.$emit('update:value', this.val);
 			this.valid = true;
+		},
+		value() {
+			this.val = this.value;
 		}
 	},
 	methods: {
@@ -80,10 +83,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import "../../pretty.scss";
+<style lang="scss">
+@import "../../base.scss";
 
-.numerical-input {
+.dillerm-numerical {
 	& {
 		width: 100%;
 		height: $input-height;
@@ -96,8 +99,24 @@ export default {
 	}
 
 	input {
+		display: block;
+		padding: $input-padding;
+		width: 100%;
+		min-height: $input-height;
 		appearance: textfield;
-		border-radius: $input-border-radius 0 0 $input-border-radius !important;
+
+		font-family: $input-numerical-font-family;
+		font-size: $input-numerical-font-size;
+
+		border: $input-border;
+		border-radius: $input-border-radius 0 0 $input-border-radius;
+		background: $input-background;
+		color: $input-color;
+
+		&:hover,
+		&:focus {
+			background: $input-hover-color;
+		}
 	}
 
 	> span {
@@ -131,7 +150,7 @@ export default {
 				bottom: 0;
 				stroke: $input-color;
 				stroke-width: 4px;
-				transition: 0.5s; 
+				transition: $input-transition-time; 
 			}
 
 			&:hover svg {
