@@ -44,13 +44,6 @@ const show_config = ref(true);
 			<span class="dillerm-tooltip right">
 				VIEW SOURCE
 			</span>
-			<!-- <q-tooltip
-				class="dillerm-tooltip"
-				anchor="center right" self="center left"
-				transition-show="jump-right"
-				transition-hide="jump-left">
-				VIEW SOURCE
-			</q-tooltip> -->
 		</a>
 		<div @click="show_config = !show_config" class="dillerm-icon dillerm-icon-right config-gear">
 			<img :src="gear_svg_url" :class="{ 'spun-gear': show_config }" />

@@ -11,8 +11,11 @@
 			@focus.prevent="startEdit"
 			@blur="endEdit"
 			@keyup.esc="endEdit"
-			:class="{ focused: focused }">
-		<span class="select-search-current" v-if="!focused && selected_option">
+			:class="{ focused: focused, searchable: searchable }"
+			:inputmode="searchable ? 'none' : 'text'">
+		<span
+			class="select-search-current"
+			v-if="selected_option && (!searchable || !focused)">
 			<img
 				class="option-icon"
 				v-if="selected_option.icon"
@@ -45,7 +48,7 @@
 			class="select-search-clear" />
 		<DownIcon
 			:class="{'select-search-down': true, expanded: focused }"
-			@mousedown.prevent.stop="!focused ? startEdit() : endEdit()"
+			@mousedown.prevent.stop="toggleEdit"
 			@focus.stop
 			@click.stop />
 	</div>
@@ -85,9 +88,13 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		searchable: {
+			type: Boolean,
+			default: true
+		},
 		debounce_delay: {
 			type: Number,
-			default: 400
+			default: 250
 		}
 	},
 	data() {
@@ -157,7 +164,16 @@ export default {
 				}
 			}
 		},
+		toggleEdit() {
+			if (this.focused) {
+				this.endEdit();
+			}
+			else {
+				this.startEdit();
+			}
+		},
 		startEdit() {
+			console.log("hi")
 			this.focused = true;
 			this.$refs.input.focus();
 		},
@@ -231,11 +247,11 @@ $option-height: calc($input-height - (2 * $input-border-size));
 	$button-icon-side-padding: 5px;
 	$button-icon-size: 20px;
 
-	& {
-		position: relative;
-		text-align: left;
-		color: $input-color;
-	}
+	position: relative;
+	text-align: left;
+	color: $input-color;
+	cursor: pointer;
+	
 
 	& > input {
 		cursor: pointer;
@@ -245,10 +261,16 @@ $option-height: calc($input-height - (2 * $input-border-size));
 	}
 
 	& > input.focused {
-		cursor: text;
 		width: 100%;
 		position: relative;
 		border-radius: $input-border-radius $input-border-radius 0 0;
+		cursor: text;
+
+		&:not(.searchable) {
+			z-index: -100;
+			color: transparent;
+			cursor: pointer;
+		}
 	}
 
 	& > div {
@@ -296,7 +318,7 @@ $option-height: calc($input-height - (2 * $input-border-size));
 	}
 
 	.option-icon {
-		height: 100%;
+		height: $option-height;
 		width: $option-height;
 		vertical-align: middle;
 		margin-right: $input-padding-rl;

@@ -18,13 +18,13 @@ props.parameters.forEach(param => {
 const param_data = reactive(defaultParams);
 
 
-const debounced_callback = debounce(() => props.callback(toRaw(param_data)), 250);
+// const debounced_callback = debounce(() => props.callback(toRaw(param_data)), 0);
 
 watch(param_data, (new_value, old_value) => {
 	if (props.callback) {
-		debounced_callback();
+		props.callback(toRaw(param_data));
 	}
-});
+}, { immediate: true });
 
 </script>
 
@@ -43,16 +43,19 @@ watch(param_data, (new_value, old_value) => {
 					v-if="parameter.type == 'select'"
 					v-model:value="param_data[parameter.name]"
 					:options="parameter.options"
+					:searchable="false"
 					emitvalue
 				/>
 				<dillerm-slider v-if="parameter.type == 'slider'"
 					v-model:value="param_data[parameter.name]"
+					:debounce="250"
 					:min="parameter.min"
 					:max="parameter.max"
 					:step="parameter.step"
 				/>
 				<dillerm-slider v-if="parameter.type == 'percent'"
 					v-model:value="param_data[parameter.name]"
+					:debounce="250"
 					:min="parameter.min || 0"
 					:max="parameter.max || 1"
 					:step="0.01"
@@ -80,7 +83,7 @@ watch(param_data, (new_value, old_value) => {
 	.parameter-label {
 		font-weight: bold;
 		text-align: right;
-		padding: 5px;
+		padding: 0px 5px;
 	}
 
 	.parameter-value {

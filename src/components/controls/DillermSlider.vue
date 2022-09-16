@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { debounce } from "../../utils";
 // https://stackoverflow.com/questions/14627566/
 function stepRound(number, increment, offset) {
 	return Math.round((number - offset) / increment ) * increment + offset;
@@ -61,6 +62,10 @@ export default {
 			type: Number,
 			default: 1
 		},
+		debounce: {
+			type: Number,
+			default: 0
+		},
 		is_percent: {
 			type: Boolean,
 			default: false
@@ -77,9 +82,9 @@ export default {
 	},
 	computed: {
 		pretty_value() {
-			var value = this.value;
+			var value = this.val;
 			if (this.is_percent) {
-				value = (((this.value - this.min) / (this.max - this.min)) * 100);
+				value = (((value - this.min) / (this.max - this.min)) * 100);
 				return `${Math.round(value)}%`
 			}
 			value = this.is_integer ? value.toFixed(0) : value.toFixed(2);
@@ -89,13 +94,13 @@ export default {
 			return Number.isInteger(this.step) && Number.isInteger(this.min)
 		},
 		pretty_drag_percent() {
-			var percent = this.dragging ? this.drag_percent : (this.value - this.min) / (this.max - this.min);
+			var percent = this.dragging ? this.drag_percent : (this.val - this.min) / (this.max - this.min);
 			return `${(percent * 100).toFixed(2)}%`
 		}
 	},
 	watch: {
 		val() {
-			this.$emit('update:value', Number(this.val));
+			this.debounced_emit();
 			this.valid = true;
 		},
 		value() {
@@ -114,7 +119,7 @@ export default {
 			return {
 				"mouseup": this.endDrag,
 				"mousemove": this.moveDrag,
-				"touchup": this.endDrag,
+				"touchend": this.endDrag,
 				"touchmove": this.moveDrag,
 				"blur": this.endDrag
 			}
@@ -128,11 +133,14 @@ export default {
 		},
 		moveDrag(event) {
 			if (this.dragging) {
-
+				var clientX = event.clientX;
+				if (!clientX && event.touches) {
+					clientX = event.touches[0].clientX;
+				}
 				// This code could be optimized by moving almost all of this to the beginning of the drag
 				var bar_element = this.$el.querySelector(":scope .slider-bar-back");
 				var rect = bar_element.getBoundingClientRect();
-				var percent = (event.clientX - rect.left) / (rect.right - rect.left);
+				var percent = (clientX - rect.left) / (rect.right - rect.left);
 
 				this.setPercent(percent);
 			}
@@ -145,6 +153,7 @@ export default {
 	},
 	created() {
 		this.val = this.value;
+		this.debounced_emit = debounce(() => this.$emit('update:value', Number(this.val)), this.debounce);
 	}
 }
 </script>

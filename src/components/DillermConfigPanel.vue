@@ -28,7 +28,6 @@ const props = defineProps({
 	background-color: #202225;
 	/* background-color: #36393f; */
 	color: #FFFFFF;
-	opacity: 0.9;
 	z-index: 1000;
 
 	position: fixed;
@@ -60,8 +59,17 @@ const props = defineProps({
 }
 
 @media only screen and (max-width: 800px) {
-	.config-panel {
+	.dillerm-config-panel {
 		width: 100%;
+		max-width: none;
+
+		> div {
+			padding: 10px;
+		}
+
+		h4 {
+			margin-bottom: 20px;
+		}
 	}
 }
 
