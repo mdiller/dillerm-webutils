@@ -31,16 +31,10 @@ var parameters = [
 	}
 ]
 
-function callme(values) {
-  console.log(values);
-}
-
 DillermWebUtils.init("#navbar", {
   parameters: parameters,
   parameters_callback: values => console.dir(values)
 });
-
-console.log("example stuff");
 
 </script>
 

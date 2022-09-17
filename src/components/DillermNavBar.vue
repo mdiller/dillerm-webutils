@@ -21,7 +21,7 @@ const show_config = ref(true);
 
 <template>
 	<DillermConfigPanel
-		v-if="config"
+		v-if="config.parameters"
 		:show="show_config"
 		:config="config" />
 	<div class="dillerm dillerm-nav-bar">
@@ -45,7 +45,7 @@ const show_config = ref(true);
 				VIEW SOURCE
 			</span>
 		</a>
-		<div @click="show_config = !show_config" class="dillerm-icon dillerm-icon-right config-gear">
+		<div v-if="config.parameters" @click="show_config = !show_config" class="dillerm-icon dillerm-icon-right config-gear">
 			<img :src="gear_svg_url" :class="{ 'spun-gear': show_config }" />
 			<span class="dillerm-tooltip left">
 				CONFIGURATION
