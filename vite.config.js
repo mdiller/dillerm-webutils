@@ -13,6 +13,7 @@ export default defineConfig({
 		svgLoader()
 	],
 	root: "src",
+	publicDir: "demos",
 	define: {
 		"process.env": {}
 	},
@@ -23,13 +24,18 @@ export default defineConfig({
 			entry: resolve(__dirname, "src/index.js"),
 			name: "DillermWebUtils",
 			fileName: (format) => `dillerm.${format}.js`,
-		}
-	},
-	rollupOptions: {
-		external: ["vue"],
-		output: {
-			globals: {
-				vue: "Vue",
+		},
+		rollupOptions: {
+			// external: ["vue"], (this also needs this fix if we wanna use it: https://github.com/vitejs/vite/issues/3001)
+			output: {
+				assetFileNames: (assetInfo) => {
+					if (assetInfo.name == "style.css")
+						return "dillerm.css";
+					return assetInfo.name;
+				},
+				globals: {
+					vue: "Vue",
+				},
 			},
 		},
 	},
