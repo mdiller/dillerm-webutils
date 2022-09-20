@@ -15,7 +15,7 @@ const props = defineProps({
 
 const nav_gradient = new ColorGradient(["#23272A", "#202225"]);
 
-const show_config = ref(true);
+const show_config = ref(false);
 
 </script>
 

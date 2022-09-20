@@ -173,7 +173,6 @@ export default {
 			}
 		},
 		startEdit() {
-			console.log("hi")
 			this.focused = true;
 			this.$refs.input.focus();
 		},

@@ -18,6 +18,7 @@ export default defineConfig({
 		"process.env": {}
 	},
 	build: {
+		// minify: false,
 		outDir: resolve(__dirname, "build"),
 		emptyOutDir: true,
 		lib: {
