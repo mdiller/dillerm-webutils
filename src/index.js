@@ -1,4 +1,5 @@
 import { createApp } from "vue"
+import { createApp as createAppClient } from "vue/dist/vue.esm-bundler"
 
 import "./base.scss"
 
@@ -20,5 +21,6 @@ export default {
 		
 		app.mount(navbar_id);
 		return app;
-	}
+	},
+	createVueApp: createAppClient
 }
