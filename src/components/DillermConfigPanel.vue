@@ -25,9 +25,7 @@ const props = defineProps({
 .dillerm-config-panel {
 	max-width: 600px;
 	height: 100%;
-	background-color: #202225;
-	/* background-color: #36393f; */
-	color: #FFFFFF;
+	background-color: var(--config-panel-background);
 	z-index: 1000;
 
 	position: fixed;
@@ -44,9 +42,10 @@ const props = defineProps({
 	
 	h4 {
 		margin-top: 0px;
+		margin-bottom: 24px;
 		font-weight: bold;
 		text-align: center;
-		font-size: 30px;
+		font-size: 28px;
 	}
 
 	> div {

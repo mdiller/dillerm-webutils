@@ -69,12 +69,12 @@ export default {
 	border-radius: $input-border-radius;
 	position: relative;
 	background: $input-background;
-	transition: $input-transition-time;
+	transition: var(--input-transition-time);
 	cursor: pointer;
 
 	&:focus-within,
 	&:hover {
-		background: $input-hover-color;
+		background: var(--input-hover-color);
 	}
 
 	input {
@@ -97,15 +97,15 @@ export default {
 		position: absolute;
 		top: 55%;
 
-		border-right: calc(#{$box-size} / 7) solid $input-color;
-		border-bottom: calc(#{$box-size} / 7) solid $input-color;
+		border-right: calc(#{$box-size} / 7) solid var(--input-color);
+		border-bottom: calc(#{$box-size} / 7) solid var(--input-color);
 		transform: rotate(45deg);
 		transform-origin: bottom left;
 		animation: checkbox-check 75ms forwards;
 	}
 
 	.anti-check {
-		fill: $input-color;
+		fill: var(--input-color);
 		opacity: 15%;
 	}
 

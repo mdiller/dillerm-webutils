@@ -13,7 +13,7 @@ export default defineConfig({
 		svgLoader()
 	],
 	root: "src",
-	publicDir: "demos",
+	publicDir: "public",
 	define: {
 		"process.env": {}
 	},

@@ -1,44 +1,64 @@
 :root {
-	// from old base.css
+	// general layout
 	--navbar-height: 70px;
-	--background-color: #303030;
-	--orange-color: #C67F41;
 
-	// --input-background: #313339;
-	--input-background-hue: 225;
-	--input-background-saturation: 8%;
-	--input-background: hsl(var(--input-background-hue), var(--input-background-saturation), 21%);
-	// --input-color: #f6f6f7;
+	// main colors
+	--main-hue: 222;
+	--main-saturation: 18%;
+	--value-base: 19%;
+	--value-step: 3%;
+	--background-color1: hsl(var(--main-hue), var(--main-saturation), var(--value-base));
+	--background-color2: hsl(var(--main-hue), var(--main-saturation), calc(var(--value-base) - (1 * var(--value-step))));
+	--background-color3: hsl(var(--main-hue), var(--main-saturation), calc(var(--value-base) - (2 * var(--value-step))));
+	--background-color4: hsl(var(--main-hue), var(--main-saturation), calc(var(--value-base) - (3 * var(--value-step))));
+	--highlight-color1: #C67F41;
+	--navbar-color1: var(var(--background-color3));
+	--navbar-color2: var(var(--background-color4));
 
-	// --input-border-color: #2d2f35;
-	--input-border-color: hsl(var(--input-background-hue), var(--input-background-saturation), 19%);
+	// input colors
+	--config-panel-background: var(--background-color2);
+	--input-background: var(--background-color3);
+	--input-color: var(--text-color);
+	--input-border-color: var(--background-color4);
+	--input-hover-color: var(--input-border-color);
+	--input-highlight-color: #387ad1;
+	--input-options-color: var(--input-background); // var(--input-background);
+	--input-options-hover-color: var(--input-hover-color); // var(--input-border-color);
+	// --input-background-hue: 225;
+	// --input-background-saturation: 8%;
+	// --input-background: hsl(var(--input-background-hue), var(--input-background-saturation), 21%);
+	// --input-color: hsl(var(--input-background-hue), var(--input-background-saturation), 97%);
+	// --input-border-color: hsl(var(--input-background-hue), var(--input-background-saturation), 19%);
+
+	// text colors
+	--text-color: #f7f7f8; // #f7f7f8;
+	--label-color: #b9bbbe;
+	--heading-color: #f0f0f0;
+
+	// input border
 	--input-border-style: solid;
-	--input-border-size: 2px;
+	--input-border-size: 1px;
 	--input-border-radius: 5px;
 
-	--input-color: hsl(var(--input-background-hue), var(--input-background-saturation), 97%);
-	--options-hover: var(--input-border-color);
-
+	// input layout
 	--input-padding-tb: 6px; /* 4px 8px */
 	--input-padding-rl: 10px;
 	--input-height: 40px; /* 26px (if you go over 32, select button on ff doesnt look nice) */
 	--input-transition-time: 0.5s; /* 26px (if you go over 32, select button on ff doesnt look nice) */
 
-
-	--input-highlight-color: #387ad1;
-	--input-hover-color: var(--input-border-color);
-
-	--form-background: #36393f;
-
-	--label-color: #b9bbbe;
-	--heading-color: #f0f0f0;
-
-	--input-font-family: Verdana, Geneva, sans-serif;
+	--dillerm-font-family: Work Sans, Verdana, Geneva, sans-serif;
+	
+	--input-font-family: var(--dillerm-font-family);
 	--input-font-size: 14px; 
 	
 	--input-numerical-font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
-	--input-numerical-font-size: 12px; 
+	--input-numerical-font-size: 12px;
 }
+
+// @import "themes/discord.scss";
+
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800&display=swap");
+
 
 /* this is so that I can make the actual css variables more specific */
 $input-border-color: var(--input-border-color);
@@ -49,23 +69,10 @@ $input-padding-rl: var(--input-padding-rl);
 $input-padding-tb: var(--input-padding-tb);
 $input-height: var(--input-height);
 $input-background: var(--input-background);
-$input-color: var(--input-color);
-$options-hover: var(--options-hover);
-$form-background: var(--form-background);
-$label-color: var(--label-color);
-$heading-color: var(--heading-color);
-$input-highlight-color: var(--input-highlight-color);
-$input-hover-color: var(--input-hover-color);
-$input-transition-time: var(--input-transition-time);
 
 $input-border: $input-border-size $input-border-style $input-border-color;
 $input-padding: $input-padding-tb $input-padding-rl;
 $input-line-height: calc(#{$input-height} - (#{$input-padding-tb} * 2) - (#{$input-border-size} * 2));
-
-$input-font-family: var(--input-font-family);
-$input-font-size: var(--input-font-size);
-$input-numerical-font-family: var(--input-numerical-font-family);
-$input-numerical-font-size: var(--input-numerical-font-size);
 
 // A couple global settings we want
 * {
@@ -74,44 +81,97 @@ $input-numerical-font-size: var(--input-numerical-font-size);
 
 body,
 html {
-	color: $input-color;
-	background-color: var(--background-color);
+	color: var(--text-color);
+	background-color: var(--background-color1);
 	margin: 0;
 }
 
-#content {
-	max-width: 600px;
-	padding: 50px;
+.dillerm-content {
+	max-width: 550px;
+	padding: 25px;
 	margin: auto;
+	font-size: 14px;
+
+	h1 {
+		text-align: center;
+		// font-weight: 700;
+	}
+
+	> p,
+	> .dillerm-card {
+		margin: 24px 0px;
+	}
+}
+
+@media only screen and (max-width: 650px) {
+	.dillerm-content {
+		width: 100%;
+		max-width: none;
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+}
+
+.dillerm-card {
+	background: var(--background-color2);
+	border: 1px solid var(--background-color3);
+	padding: 20px;
+	border-radius: 8px;
+	transition: box-shadow 0.5s;
+
+	&:hover {
+		box-shadow: 0px 0px 8px 0px var(--background-color3);
+	}
+
+	.dillerm-card-footer {
+		color: grey;
+		font-size: 12px;
+		display: flex;
+
+		> :last-child {
+			flex-grow: 1;
+			text-align: right;
+		}
+	}
 }
 
 // the main stuff
 .dillerm {
-	font-family: $input-font-family;
-	font-size: $input-font-size;
+	font-family: var(--dillerm-font-family);
 
 	.invalid {
 		box-shadow: 0 0 5px red inset;
 	}
+
+	a {
+		color: rgb(88, 166, 255);
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 }
 
 .dillerm-control {
+	font-size: var(--input-font-size);
+
 	input:focus {
 		outline: none;
 	}
 	
 	input {
-		transition: background $input-transition-time;
+		transition: background var(--input-transition-time);
 	}
 }
 
 $tooltip-fade-amount: 15%;
 
 .dillerm-tooltip {
-	color: $input-color;
+	color: var(--input-color);
 	border-radius: 3px;
 	font-weight: bold;
-	font-family: $input-numerical-font-family;
+	font-family: var(--input-numerical-font-family);
 	font-size: 16px;
 
 	visibility: hidden;
@@ -119,7 +179,7 @@ $tooltip-fade-amount: 15%;
 	position: absolute;
 	white-space: nowrap;
 	padding: 8px 12px;
-	transition: 0.3s all;
+	// transition: 0.3s all;
 	
 	:hover > & {
 		opacity: 1;
@@ -179,3 +239,4 @@ $tooltip-fade-amount: 15%;
 	// 	margin-top: -5px;
 	// }
 }
+

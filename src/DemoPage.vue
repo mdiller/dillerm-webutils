@@ -31,23 +31,34 @@ const example_values = ref({
 
 <template>
 	<DillermNavBar :config="config" />
-	<div id="content" class="dillerm">
-		<h3>Example Parameters!!</h3>
-		hello there 123
-		<br/>
-		<dillerm-color v-model:value="example_values.color" />
-		<br/>
-		<dillerm-numerical v-model:value="example_values.number" />
-		<br/>
-		<dillerm-select 
-			v-model:value="example_values.option_value"
-			:options="['Example 1', 'Example 2', 'Example 3']"
-			nullable
-		/>
-		<br/>
-		<dillerm-slider v-model:value="example_values.number" />
-		<br/>
-		<dillerm-checkbox v-model:value="example_values.boolean" />
+	<div id="content" class="dillerm dillerm-content">
+		<h1>WebUtils Demo Page</h1>
+		<p>
+			The potato is a starchy tuber of the plant Solanum tuberosum and is a root vegetable and a fruit native to the Americas. The plant is a perennial in the nightshade family Solanaceae.
+		</p>
+		<div class="project-box dillerm-card">
+			<a class="project-name" href="https://en.wikipedia.org/wiki/Potato">potato-information</a>
+			<p>The potato is a starchy tuber of the plant Solanum tuberosum</p>
+			<span class="dillerm-card-footer">
+				<span>Tasty</span>
+				<span>Wow, very nice</span>
+			</span>
+		</div>
+		<div id="demoparamcontainer">
+			<dillerm-color v-model:value="example_values.color" />
+			<br/>
+			<dillerm-numerical v-model:value="example_values.number" />
+			<br/>
+			<dillerm-select 
+				v-model:value="example_values.option_value"
+				:options="['Example 1', 'Example 2', 'Example 3']"
+				nullable
+			/>
+			<br/>
+			<dillerm-slider v-model:value="example_values.number" />
+			<br/>
+			<dillerm-checkbox v-model:value="example_values.boolean" />
+		</div>
 	</div>
 </template>
 
@@ -60,8 +71,26 @@ const example_values = ref({
 
 <style scoped>
 
-#content {
-	max-width: 350px;
+.project-box {
+	position: relative;
+}
+
+.project-name {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.project-box p {
+	margin: 20px 0px;
+}
+
+.dillerm-card-footer > :last-child {
+	flex-grow: 1;
+	text-align: right;
+}
+
+#demoparamcontainer {
+	max-width: 300px;
 }
 
 </style>

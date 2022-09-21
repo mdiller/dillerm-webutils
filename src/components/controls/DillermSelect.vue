@@ -248,7 +248,7 @@ $option-height: calc($input-height - (2 * $input-border-size));
 
 	position: relative;
 	text-align: left;
-	color: $input-color;
+	color: var(--input-color);
 	cursor: pointer;
 	
 
@@ -286,16 +286,16 @@ $option-height: calc($input-height - (2 * $input-border-size));
 		overflow-x: hidden;
 		max-height: 300px;
 		z-index: 100;
-		background: $input-background;
+		background: var(--input-background);
 	}
 
 	&:hover,
 	&:focus-within {
 		& > input {
-			background: $input-hover-color;
+			background: var(--input-hover-color);
 		}
 		& > .select-search-down {
-			fill: $input-highlight-color;
+			fill: var(--input-highlight-color);
 		}
 	}
 	
@@ -308,11 +308,11 @@ $option-height: calc($input-height - (2 * $input-border-size));
 		border: $input-border;
 		border-radius: $input-border-radius;
 		background: $input-background;
-		color: $input-color;
+		color: var(--input-color);
 		
 		&:hover,
 		&:focus {
-			background: $input-hover-color;
+			background: var(--input-hover-color);
 		}
 	}
 
@@ -355,19 +355,17 @@ $option-height: calc($input-height - (2 * $input-border-size));
 		}
 	}
 	.select-search-option {
-		& {
-			float: left;
-			white-space: nowrap;
-			width: 100%;
-			height: $option-height;
-			cursor: pointer;
-			background: $input-background;
-			transition: 0.25s;
-		}
+		float: left;
+		white-space: nowrap;
+		width: 100%;
+		height: $option-height;
+		cursor: pointer;
+		background: var(--input-options-color);
+		transition: 0.25s;
 
 		&:hover,
 		&.hover {
-			background: $options-hover;
+			background: var(--input-options-hover-color);
 		}
 
 		&.noicon {
@@ -390,7 +388,7 @@ $option-height: calc($input-height - (2 * $input-border-size));
 		top: calc((#{$input-height} - #{$button-icon-size}) / 2);
 		right: 0;
 		cursor: pointer;
-		fill: $input-color;
+		fill: var(--input-color);
 		opacity: 0.75;
 		transition: 0.25s;
 

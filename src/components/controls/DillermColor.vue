@@ -71,11 +71,11 @@ export default {
 		border-radius: $input-border-radius;
 		opacity: 0.75;
 		pointer-events: none;
-		color: $input-color;
-		transition: opacity $input-transition-time;
+		color: var(--input-color);
+		transition: opacity var(--input-transition-time);
 		
-		font-family: $input-numerical-font-family;
-		font-size: $input-numerical-font-size;
+		font-family: var(--input-numerical-font-family);
+		font-size: var(--input-numerical-font-size);
 	}
 
 	&:hover > span,

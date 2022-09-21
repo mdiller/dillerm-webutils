@@ -170,28 +170,28 @@ export default {
 		height: $input-height;
 		display: flex;
 		background: $input-background;
-		transition: background $input-transition-time;
+		transition: background var(--input-transition-time);
 	}
 
 	&:hover,
 	&:focus-within {
-		background: $input-hover-color;
+		background: var(--input-hover-color);
 
 		.slider-bar-grabber {
-			background: $input-highlight-color !important;
+			background: var(--input-highlight-color) !important;
 		}
 	}
 
 	span.slider-number {
 		line-height: calc($input-height - (2 * $input-border-size));
-		color: $input-color;
+		color: var(--input-color);
 		border-right: $input-border;
 		min-width: 46px;
 		padding: 0px 8px;
 		text-align: center;
 		
-		font-family: $input-numerical-font-family;
-		font-size: $input-numerical-font-size;
+		font-family: var(--input-numerical-font-family);
+		font-size: var(--input-numerical-font-size);
 	}
 	// input[type="number"] {
 	// 	min-width: 10px;
@@ -232,7 +232,7 @@ export default {
 
 		.slider-bar-prefix {
 			border-radius: $input-border-radius 0px 0px $input-border-radius;
-			background: $input-color;
+			background: var(--input-color);
 			opacity: 50%;
 		}
 		.slider-bar-postfix {
@@ -248,7 +248,7 @@ export default {
 			left: 0px;
 			width: 25%;
 			display: inline-block;
-			background: $input-color;
+			background: var(--input-color);
 			opacity: 50%;
 		}
 		.slider-bar-grabber {
@@ -258,8 +258,8 @@ export default {
 			border-radius: $input-border-radius;
 			transform: translateX(-50%);
 			display: inline-block;
-			background: $input-color;
-			transition: background $input-transition-time, transform 0.25s;
+			background: var(--input-color);
+			transition: background var(--input-transition-time), transform 0.25s;
 		}
 		
 	}
@@ -272,6 +272,7 @@ export default {
 		width: 100%;
 		height: 10px;
 		z-index: -1000;
+		opacity: 0%;
 	}
 }
 

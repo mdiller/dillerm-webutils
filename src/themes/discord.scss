@@ -1,0 +1,21 @@
+:root {
+	// main colors
+	--background-color1: #36393f;
+	--background-color2: #2f3136;
+	--background-color3: #292b2f;
+	--background-color4: #202225;
+	--highlight-color1: #C67F41;
+
+	// input colors
+	--input-background: #40444b;
+	--input-color: var(--text-color);
+	--input-border-color: transparent;
+	--input-hover-color: #3c3f45;
+	--input-highlight-color: #5865F2;
+	--input-options-color: var(--input-background);
+	--input-options-hover-color: var(--input-hover-color);
+
+	// input border
+	--input-border-size: 0px;
+	--input-border-radius: 8px;
+}

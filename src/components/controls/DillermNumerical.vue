@@ -95,7 +95,7 @@ export default {
 
 	&:hover input,
 	& input:focus {
-		background: $input-hover-color;
+		background: var(--input-hover-color);
 	}
 
 	input {
@@ -105,17 +105,17 @@ export default {
 		min-height: $input-height;
 		appearance: textfield;
 
-		font-family: $input-numerical-font-family;
-		font-size: $input-numerical-font-size;
+		font-family: var(--input-numerical-font-family);
+		font-size: var(--input-numerical-font-size);
 
 		border: $input-border;
 		border-radius: $input-border-radius 0 0 $input-border-radius;
 		background: $input-background;
-		color: $input-color;
+		color: var(--input-color);
 
 		&:hover,
 		&:focus {
-			background: $input-hover-color;
+			background: var(--input-hover-color);
 		}
 	}
 
@@ -148,13 +148,13 @@ export default {
 				right: 0;
 				top: 0;
 				bottom: 0;
-				stroke: $input-color;
+				stroke: var(--input-color);
 				stroke-width: 4px;
-				transition: $input-transition-time; 
+				transition: var(--input-transition-time); 
 			}
 
 			&:hover svg {
-				stroke: $input-highlight-color;
+				stroke: var(--input-highlight-color);
 			}
 		}
 	}

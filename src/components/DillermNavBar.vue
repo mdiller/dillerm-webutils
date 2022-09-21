@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue"
+import { ref, reactive, computed } from "vue"
 
 import fizzgig_svg_url from "../assets/fizzgig.svg?url";
 import github_svg_url from "../assets/github.svg?url";
@@ -12,8 +12,16 @@ const props = defineProps({
 	config: Object
 });
 
+// window.addEventListener("load", () => {
+// 	console.log("boops");
+// 	var color1 = getComputedStyle(document.documentElement).getPropertyValue("--background-color3");
+// 	var color2 = getComputedStyle(document.documentElement).getPropertyValue("--background-color4");
+// 	console.log(color1, color2);
+// 	nav_gradient.colors = [color1, color2];
+// });
 
-const nav_gradient = new ColorGradient(["#23272A", "#202225"]);
+// const nav_gradient = reactive(new ColorGradient(["#292b2f", "#202225"]));
+const nav_gradient = reactive(new ColorGradient(["#1b1f27", "#15181e"]));
 
 const show_config = ref(false);
 
@@ -64,11 +72,11 @@ const show_config = ref(false);
 	width: 100%;
 	/* background-image: url("/assets/lowpoly.svg");
 	background-repeat: repeat; */
-	background-color: #202225;
-	box-shadow: 0 0 10px 3px #202225;
+	background-color: var(--background-color3);
+	box-shadow: 0 0 10px 3px var(--background-color3);
 
 	.dillerm-app-name {
-		box-shadow: 0 0 10px 3px #202225;
+		box-shadow: 0 0 10px 3px var(--background-color3);
 	}
 
 	.logo-container {
@@ -89,7 +97,7 @@ const show_config = ref(false);
 
 	.logo-container:hover {
 		transform: scale(115%);
-		filter: drop-shadow(0px 0px 4px var(--orange-color));
+		filter: drop-shadow(0px 0px 4px var(--highlight-color1));
 	}
 
 	.dillerm-icon {
@@ -98,6 +106,10 @@ const show_config = ref(false);
 		padding: calc(0.25 * var(--navbar-height));
 		width: var(--navbar-height);
 		height: var(--navbar-height);
+
+		&:not(:hover) {
+			opacity: 90%;
+		}
 	}
 
 	.dillerm-icon-right {
@@ -115,10 +127,10 @@ const show_config = ref(false);
 		left: 50%;
 		height: var(--navbar-height);
 		line-height: var(--navbar-height);
-		color: var(--orange-color);
+		color: var(--highlight-color1);
 		font-weight: bold;
 		font-size: 16px;
-		font-family: 'Consolas', 'Courier New', Courier, monospace;
+		font-family: var(--input-numerical-font-family);
 	}
 	.logo-text-left {
 		transform: translateX(-100%);
@@ -149,7 +161,7 @@ const show_config = ref(false);
 
 	path:hover {
 		transform-origin: center;
-		/* transform: scale(120%); */
+		// transform: scale(120%);
 		opacity: 20%;
 	}
 }

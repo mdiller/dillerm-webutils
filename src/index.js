@@ -3,6 +3,7 @@ import { createApp as createAppClient } from "vue/dist/vue.esm-bundler"
 
 import "./base.scss"
 
+import DemoPage from "./DemoPage.vue"
 import DillermNavBar from "./components/DillermNavBar.vue"
 
 // should put this config definition somewhere useful
@@ -21,6 +22,10 @@ export default {
 		
 		app.mount(navbar_id);
 		return app;
+	},
+	initDemo(element_id) {
+		const app = createApp(DemoPage);
+		app.mount("#vueapp");
 	},
 	createVueApp: createAppClient
 }

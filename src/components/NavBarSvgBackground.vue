@@ -116,7 +116,7 @@ function generateTriangles() {
 	triangle_colors.value = _colors;
 }
 
-watch([max_x, max_y, triangle_size, () => DRIFT_AMOUNT], () => {
+watch([props.color_gradient, max_x, max_y, triangle_size, () => DRIFT_AMOUNT], () => {
 	generateVertices();
 	generateTriangles();
 }, {

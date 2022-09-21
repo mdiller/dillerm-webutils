@@ -5,6 +5,7 @@ import { debounce } from "../utils";
 import DillermCheckbox from "./controls/DillermCheckbox.vue";
 import DillermSelect from "./controls/DillermSelect.vue";
 import DillermSlider from "./controls/DillermSlider.vue";
+import DillermNumerical from "./controls/DillermNumerical.vue";
 
 const props = defineProps({
 	parameters: Object,
@@ -46,12 +47,25 @@ watch(param_data, (new_value, old_value) => {
 					:searchable="false"
 					emitvalue
 				/>
+				<dillerm-select 
+					v-if="parameter.type == 'select-search'"
+					v-model:value="param_data[parameter.name]"
+					:options="parameter.options"
+					:placeholder="parameter.placeholder"
+					:searchable="true"
+					:nullable="true"
+				/>
 				<dillerm-slider v-if="parameter.type == 'slider'"
 					v-model:value="param_data[parameter.name]"
 					:debounce="250"
 					:min="parameter.min"
 					:max="parameter.max"
 					:step="parameter.step"
+				/>
+				<dillerm-numerical v-if="parameter.type == 'numerical'"
+					v-model:value="param_data[parameter.name]"
+					:min="parameter.min"
+					:max="parameter.max"
 				/>
 				<dillerm-slider v-if="parameter.type == 'percent'"
 					v-model:value="param_data[parameter.name]"
@@ -81,7 +95,7 @@ watch(param_data, (new_value, old_value) => {
 	}
 
 	.parameter-label {
-		font-weight: bold;
+		font-weight: 600;
 		text-align: right;
 		padding: 0px 5px;
 	}
