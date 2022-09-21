@@ -22,18 +22,11 @@
 	--input-border-color: var(--background-color4);
 	--input-hover-color: var(--input-border-color);
 	--input-highlight-color: #387ad1;
-	--input-options-color: var(--input-background); // var(--input-background);
-	--input-options-hover-color: var(--input-hover-color); // var(--input-border-color);
-	// --input-background-hue: 225;
-	// --input-background-saturation: 8%;
-	// --input-background: hsl(var(--input-background-hue), var(--input-background-saturation), 21%);
-	// --input-color: hsl(var(--input-background-hue), var(--input-background-saturation), 97%);
-	// --input-border-color: hsl(var(--input-background-hue), var(--input-background-saturation), 19%);
+	--input-options-color: var(--input-background);
+	--input-options-hover-color: var(--input-hover-color);
 
 	// text colors
-	--text-color: #f7f7f8; // #f7f7f8;
-	--label-color: #b9bbbe;
-	--heading-color: #f0f0f0;
+	--text-color: #f7f7f8;
 
 	// input border
 	--input-border-style: solid;
@@ -41,10 +34,10 @@
 	--input-border-radius: 5px;
 
 	// input layout
-	--input-padding-tb: 6px; /* 4px 8px */
+	--input-padding-tb: 6px;
 	--input-padding-rl: 10px;
-	--input-height: 40px; /* 26px (if you go over 32, select button on ff doesnt look nice) */
-	--input-transition-time: 0.5s; /* 26px (if you go over 32, select button on ff doesnt look nice) */
+	--input-height: 40px;
+	--input-transition-time: 0.5s;
 
 	--dillerm-font-family: Work Sans, Verdana, Geneva, sans-serif;
 	
