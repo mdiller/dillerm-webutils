@@ -4,6 +4,9 @@ import vue from "@vitejs/plugin-vue"
 import svgLoader from "vite-svg-loader"
 import { quasar, transformAssetUrls } from "@quasar/vite-plugin"
 
+// import analyze from "rollup-plugin-analyzer"
+
+
 /** @type {import("vite").UserConfig} */
 export default defineConfig({
 	plugins: [
@@ -38,6 +41,7 @@ export default defineConfig({
 					vue: "Vue",
 				},
 			},
+			// plugins: [analyze()]
 		},
 	},
 	server: {
