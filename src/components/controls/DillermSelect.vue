@@ -18,10 +18,10 @@
 			v-if="selected_option && (!searchable || !focused)">
 			<img
 				class="option-icon"
-				v-if="selected_option.icon"
-				:src="selected_option.icon"
+				v-if="selected_option.icon || selected_option.icon_style"
+				:src="selected_option.icon || TRANSPARENT_IMAGE"
 				:style="selected_option.icon_style">
-			<span :class="{ noicon: !selected_option.icon }">
+			<span :class="{ noicon: !(selected_option.icon || selected_option.icon_style) }">
 				{{selected_option.label || placeholder}}
 			</span>
 		</span>
@@ -31,13 +31,13 @@
 			</div>
 			<div 
 				v-for="(option, index) in actual_options"
-				:class="{ 'select-search-option': true, hover: (index == hovered_option_index), noicon: !option.icon }"
+				:class="{ 'select-search-option': true, hover: (index == hovered_option_index), noicon: !(selected_option.icon || selected_option.icon_style) }"
 				@click.stop="selectOption(option)"
 				@mousedown.prevent>
 				<img
 					class="option-icon"
-					v-if="option.icon"
-					:src="option.icon"
+					v-if="selected_option.icon || selected_option.icon_style"
+					:src="option.icon || TRANSPARENT_IMAGE"
 					:style="option.icon_style">
 				{{option.label}}
 			</div>
@@ -104,7 +104,8 @@ export default {
 			focused: false,
 			hovered_option_index: -1,
 			actual_options: [],
-			status: ""
+			status: "",
+			TRANSPARENT_IMAGE: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAQAAAAnOwc2AAAAD0lEQVR42mNkwAIYh7IgAAVVAAuInjI5AAAAAElFTkSuQmCC"
 		}
 	},
 	computed: {
@@ -119,11 +120,6 @@ export default {
 						newoptions = newoptions.map(opt => { return { label: opt } });
 					}
 				}
-				newoptions.forEach(opt => {
-					if (opt.icon_style && !opt.icon) { // give it a transparent icon if we want to style it but we have no icon
-						opt.icon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAQAAAAnOwc2AAAAD0lEQVR42mNkwAIYh7IgAAVVAAuInjI5AAAAAElFTkSuQmCC"
-					}
-				})
 				return (input, callback) => {
 					if (input) {
 						var pattern = new RegExp(escapeRegex(input), "i");
@@ -132,7 +128,7 @@ export default {
 					else {
 						callback(newoptions);
 					}
-				}
+				};
 			}
 		}
 	},
