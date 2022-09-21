@@ -12,8 +12,8 @@
 	--background-color3: hsl(var(--main-hue), var(--main-saturation), calc(var(--value-base) - (2 * var(--value-step))));
 	--background-color4: hsl(var(--main-hue), var(--main-saturation), calc(var(--value-base) - (3 * var(--value-step))));
 	--highlight-color1: #C67F41;
-	--navbar-color1: var(var(--background-color3));
-	--navbar-color2: var(var(--background-color4));
+	--navbar-color1: var(--background-color3);
+	--navbar-color2: var(--background-color4);
 
 	// input colors
 	--config-panel-background: var(--background-color2);
