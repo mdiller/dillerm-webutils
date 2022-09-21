@@ -179,11 +179,13 @@ $tooltip-fade-amount: 15%;
 	position: absolute;
 	white-space: nowrap;
 	padding: 8px 12px;
-	// transition: 0.3s all;
-	
-	:hover > & {
-		opacity: 1;
-		visibility: visible;
+	transition: 0.3s all;
+
+	@media (hover: hover) {
+		:hover > & {
+			opacity: 1;
+			visibility: visible;
+		}
 	}
 
 	/* position specific */

@@ -55,8 +55,6 @@ const example_values = ref({
 				nullable
 			/>
 			<br/>
-			<dillerm-slider v-model:value="example_values.number" />
-			<br/>
 			<dillerm-checkbox v-model:value="example_values.boolean" />
 		</div>
 	</div>

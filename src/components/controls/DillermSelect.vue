@@ -12,7 +12,7 @@
 			@blur="endEdit"
 			@keyup.esc="endEdit"
 			:class="{ focused: focused, searchable: searchable }"
-			:inputmode="searchable ? 'none' : 'text'">
+			:inputmode="searchable ? 'text' : 'none'">
 		<span
 			class="select-search-current"
 			v-if="selected_option && (!searchable || !focused)">
