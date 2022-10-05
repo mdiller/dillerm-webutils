@@ -3,31 +3,10 @@ import { createApp as createAppClient } from "vue/dist/vue.esm-bundler";
 
 import "./base.scss";
 
-// import components
-import DillermConfigPanel from "./components/DillermConfigPanel.vue";
-import DillermNavBar from "./components/DillermNavBar.vue";
-import NavBarSvgBackground from "./components/NavBarSvgBackground.vue";
-import ParametersForm from "./components/ParametersForm.vue";
-import SvgTriangleBox from "./components/SvgTriangleBox.vue";
-import DillermCheckbox from "./components/controls/DillermCheckbox.vue";
-import DillermColor from "./components/controls/DillermColor.vue";
-import DillermNumerical from "./components/controls/DillermNumerical.vue";
-import DillermSelect from "./components/controls/DillermSelect.vue";
-import DillermSlider from "./components/controls/DillermSlider.vue";
-const ALL_COMPONENTS = {
-	DillermConfigPanel,
-	DillermNavBar,
-	NavBarSvgBackground,
-	ParametersForm,
-	SvgTriangleBox,
-	DillermCheckbox,
-	DillermColor,
-	DillermNumerical,
-	DillermSelect,
-	DillermSlider ,
-};
+import components from "./components";
 
 import DemoPage from "./DemoPage.vue";
+import DillermNavBar from "./components/DillermNavBar.vue";
 
 import * as utils from "./utils.js";
 
@@ -52,7 +31,18 @@ export default {
 		const app = createApp(DemoPage);
 		app.mount("#vueapp");
 	},
+	install(Vue) {
+		for (const prop in components) {
+			if (components.hasOwnProperty(prop)) {
+				const component = components[prop];
+				// console.log(component.name, component);
+				if (component.name) {
+					Vue.component(component.name, component);
+				}
+			}
+		}
+	},
 	createVueApp: createAppClient,
-	components: ALL_COMPONENTS,
+	components: components,
 	utils: utils
 }

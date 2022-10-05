@@ -1,7 +1,13 @@
 {
-	"name": "vue",
+	"name": "@dillerm/webutils",
 	"private": true,
-	"version": "0.0.0",
+	"version": "0.0.1",
+	"main": "build/dillerm.umd.js",
+	"module": "build/dillerm.es.js",
+	"files": [
+		"build/*",
+		"src/components/*"
+	],
 	"type": "module",
 	"scripts": {
 		"dev": "vite --host",

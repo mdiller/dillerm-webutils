@@ -26,7 +26,7 @@ export default defineConfig({
 			fileName: (format) => `dillerm.${format}.js`,
 		},
 		rollupOptions: {
-			// external: ["vue"], (this also needs this fix if we wanna use it: https://github.com/vitejs/vite/issues/3001)
+			// external: ["vue"], // (this also needs this fix if we wanna use it: https://github.com/vitejs/vite/issues/3001)
 			output: {
 				assetFileNames: (assetInfo) => {
 					if (assetInfo.name == "style.css")
