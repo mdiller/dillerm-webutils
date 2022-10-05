@@ -2,17 +2,13 @@ import { resolve } from "path"
 import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
 import svgLoader from "vite-svg-loader"
-import { quasar, transformAssetUrls } from "@quasar/vite-plugin"
 
 // import analyze from "rollup-plugin-analyzer"
-
 
 /** @type {import("vite").UserConfig} */
 export default defineConfig({
 	plugins: [
-		vue({
-			template: { transformAssetUrls }
-		}),
+		vue(),
 		svgLoader()
 	],
 	root: "src",
@@ -21,7 +17,7 @@ export default defineConfig({
 		"process.env": {}
 	},
 	build: {
-		// minify: false,
+		minify: process.env.DEBUG_MODE ? false : true,
 		outDir: resolve(__dirname, "build"),
 		emptyOutDir: true,
 		lib: {

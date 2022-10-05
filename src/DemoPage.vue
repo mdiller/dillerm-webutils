@@ -16,15 +16,12 @@ const config = ref({
 	// parameters_callback: values => console.dir(values)
 });
 
-const example_options = ref([
-	'Example 1', 'Example 2', 'Example 3'
-])
-
 const example_values = ref({
 	number: 1,
 	color: "#00ff00",
 	boolean: true,
-	option_value: null
+	option_value: "Example 1",
+	options: [ "Example 1", "Example 2", "Example 3" ]
 })
 
 </script>
@@ -51,8 +48,8 @@ const example_values = ref({
 			<br/>
 			<dillerm-select 
 				v-model:value="example_values.option_value"
-				:options="['Example 1', 'Example 2', 'Example 3']"
-				nullable
+				:options="example_values.options"
+				:emitvalue="true"
 			/>
 			<br/>
 			<dillerm-checkbox v-model:value="example_values.boolean" />

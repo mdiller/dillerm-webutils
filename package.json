@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "vite --host",
 		"build": "vite build",
-		"devbuild": "vite build && sh _scripts/sync_libdev.sh"
+		"devbuild": "set DEBUG_MODE=true && vite build && sh _scripts/sync_libdev.sh"
 	},
 	"dependencies": {
 		"vue": "^3.2.37"

@@ -31,12 +31,12 @@
 			</div>
 			<div 
 				v-for="(option, index) in actual_options"
-				:class="{ 'select-search-option': true, hover: (index == hovered_option_index), noicon: !(selected_option.icon || selected_option.icon_style) }"
+				:class="{ 'select-search-option': true, hover: (index == hovered_option_index), noicon: !(option.icon || option.icon_style) }"
 				@click.stop="selectOption(option)"
 				@mousedown.prevent>
 				<img
 					class="option-icon"
-					v-if="selected_option.icon || selected_option.icon_style"
+					v-if="option.icon || option.icon_style"
 					:src="option.icon || TRANSPARENT_IMAGE"
 					:style="option.icon_style">
 				{{option.label}}
@@ -109,7 +109,7 @@ export default {
 		}
 	},
 	computed: {
-		options_func() {
+		options_func() {			
 			if (this.options instanceof Function) {
 				return this.options;
 			}
@@ -117,7 +117,7 @@ export default {
 				var newoptions = this.options;
 				if (newoptions.length > 0) {
 					if (typeof newoptions[0] == "string") {
-						newoptions = newoptions.map(opt => { return { label: opt } });
+						newoptions = newoptions.map(opt => { return { label: opt, value: opt } });
 					}
 				}
 				return (input, callback) => {
@@ -140,7 +140,7 @@ export default {
 		value() {
 			this.syncValueDown();
 		},
-		selected_option() {
+		selected_option() {			
 			if (this.emitvalue && this.selected_option) {
 				this.$emit('update:value', this.selected_option.value);
 			}
@@ -150,10 +150,10 @@ export default {
 		}
 	},
 	methods: {
-		syncValueDown() {
+		syncValueDown() {			
 			if (this.value != this.selected_option) {
-				if (this.emitvalue) {
-					this.selected_option = this.options.find(opt => opt.value == this.value);
+				if (this.emitvalue) {					
+					this.selected_option = this.actual_options.find(opt => opt.value == this.value);					
 				}
 				else {
 					this.selected_option = this.value;
@@ -178,7 +178,7 @@ export default {
 			this.$refs.input.blur();
 			this.hovered_option_index = -1;
 		},
-		recreateOptions() {
+		recreateOptions() {			
 			var self = this;
 			this.hovered_option_index = -1;
 			this.options_func(this.input, (newoptions, newstatus) => {
@@ -223,11 +223,11 @@ export default {
 		}
 	},
 	mounted() {
-		this.$el.addEventListener("keydown", this.keyHandler);// test  123
+		this.$el.addEventListener("keydown", this.keyHandler);
 	},
-	created() {
+	created() {		
 		this.debouncedRecreateOptions = debounce(this.recreateOptions, this.debounce_delay);
-		this.debouncedRecreateOptions();
+		this.recreateOptions();
 		this.syncValueDown();
 	}
 };
