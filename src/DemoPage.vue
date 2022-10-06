@@ -50,6 +50,7 @@ const example_values = ref({
 				v-model:value="example_values.option_value"
 				:options="example_values.options"
 				:emitvalue="true"
+				:searchable="false"
 			/>
 			<br/>
 			<dillerm-checkbox v-model:value="example_values.boolean" />

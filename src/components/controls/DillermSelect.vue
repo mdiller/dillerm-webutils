@@ -31,7 +31,7 @@
 			</div>
 			<div 
 				v-for="(option, index) in actual_options"
-				:class="{ 'select-search-option': true, hover: (index == hovered_option_index), noicon: !(option.icon || option.icon_style) }"
+				:class="{ 'select-search-option': true, hover: (index == hovered_option_index), noicon: !(option.icon || option.icon_style), 'is-selected': option == selected_option }"
 				@click.stop="selectOption(option)"
 				@mousedown.prevent>
 				<img
@@ -234,9 +234,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../base.scss";
-
-$option-height: calc($input-height - (2 * $input-border-size));
+$option-height: calc(var(--input-height) - (2 * var(--input-border-size)));
 
 .dillerm-select {
 	$button-icon-side-padding: 5px;
@@ -252,17 +250,17 @@ $option-height: calc($input-height - (2 * $input-border-size));
 		cursor: pointer;
 		width: 100%;
 		position: relative;
-		border-radius: $input-border-radius;
+		border-radius: var(--input-border-radius);
+		line-height: var(--input-line-height);
 	}
 
 	& > input.focused {
 		width: 100%;
 		position: relative;
-		border-radius: $input-border-radius $input-border-radius 0 0;
+		border-radius: var(--input-border-radius) var(--input-border-radius) 0 0;
 		cursor: text;
 
 		&:not(.searchable) {
-			z-index: -100;
 			color: transparent;
 			cursor: pointer;
 		}
@@ -274,10 +272,10 @@ $option-height: calc($input-height - (2 * $input-border-size));
 		top: 100%;
 		left: 0;
 		right: 0;
-		border-right: $input-border;
-		border-left: $input-border;
-		border-bottom: $input-border;
-		border-radius: 0 0 $input-border-radius $input-border-radius;
+		border-right: var(--input-border);
+		border-left: var(--input-border);
+		border-bottom: var(--input-border);
+		border-radius: 0 0 var(--input-border-radius) var(--input-border-radius);
 		overflow-y: auto;
 		overflow-x: hidden;
 		max-height: 300px;
@@ -297,13 +295,13 @@ $option-height: calc($input-height - (2 * $input-border-size));
 	
 	input {
 		display: block;
-		padding: $input-padding;
+		padding: var(--input-padding);
 		width: 100%;
-		min-height: $input-height;
+		min-height: var(--input-height);
 
-		border: $input-border;
-		border-radius: $input-border-radius;
-		background: $input-background;
+		border: var(--input-border);
+		border-radius: var(--input-border-radius);
+		background: var(--input-background);
 		color: var(--input-color);
 		
 		&:hover,
@@ -316,29 +314,27 @@ $option-height: calc($input-height - (2 * $input-border-size));
 		height: $option-height;
 		width: $option-height;
 		vertical-align: middle;
-		margin-right: $input-padding-rl;
+		margin-right: var(--input-padding-rl);
 	}
 
 	.select-search-current {
-		& {
-			pointer-events: none;
-			position: absolute;
-			left: $input-border-size;
-			top: $input-border-size;
-			right: $input-border-size;
-			bottom: $input-border-size;
-			border-radius: $input-border-radius;
-			white-space: nowrap;
-			overflow: hidden;
-		}
+		pointer-events: none;
+		position: absolute;
+		left: var(--input-border-size);
+		top: var(--input-border-size);
+		right: var(--input-border-size);
+		bottom: var(--input-border-size);
+		border-radius: var(--input-border-radius);
+		white-space: nowrap;
+		overflow: hidden;
 
 		& span {
 			position: absolute;
-			left: $input-height;
+			left: var(--input-height);
 			top: 0;
 			bottom: 0;
-			padding: $input-padding;
-			line-height: $input-line-height;
+			padding: var(--input-padding);
+			line-height: var(--input-line-height);
 
 			right: calc((#{$button-icon-size} * 2) + #{$button-icon-side-padding});
 			padding-right: 0px;
@@ -360,7 +356,8 @@ $option-height: calc($input-height - (2 * $input-border-size));
 		transition: 0.25s;
 
 		&:hover,
-		&.hover {
+		&.hover,
+		&.is-selected {
 			background: var(--input-options-hover-color);
 		}
 
@@ -372,8 +369,8 @@ $option-height: calc($input-height - (2 * $input-border-size));
 
 	.select-search-status {
 		font-size: 14px;
-		padding: $input-padding;
-		line-height: $input-line-height;
+		padding: var(--input-padding);
+		line-height: var(--input-line-height);
 		color: #777777;
 	}
 
@@ -381,7 +378,7 @@ $option-height: calc($input-height - (2 * $input-border-size));
 		width: $button-icon-size;
 		height: $button-icon-size;
 		position: absolute;
-		top: calc((#{$input-height} - #{$button-icon-size}) / 2);
+		top: calc((#{var(--input-height)} - #{$button-icon-size}) / 2);
 		right: 0;
 		cursor: pointer;
 		fill: var(--input-color);

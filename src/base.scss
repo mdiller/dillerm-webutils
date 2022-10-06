@@ -32,12 +32,15 @@
 	--input-border-style: solid;
 	--input-border-size: 1px;
 	--input-border-radius: 5px;
+	--input-border: var(--input-border-size) var(--input-border-style) var(--input-border-color);
 
 	// input layout
 	--input-padding-tb: 6px;
 	--input-padding-rl: 10px;
 	--input-height: 40px;
 	--input-transition-time: 0.5s;
+	--input-padding: var(--input-padding-tb) var(--input-padding-rl);
+	--input-line-height: calc(var(--input-height) - (var(--input-padding-tb) * 2) - (var(--input-border-size) * 2));
 
 	--dillerm-font-family: Work Sans, Verdana, Geneva, sans-serif;
 	
@@ -63,9 +66,9 @@ $input-padding-tb: var(--input-padding-tb);
 $input-height: var(--input-height);
 $input-background: var(--input-background);
 
-$input-border: $input-border-size $input-border-style $input-border-color;
-$input-padding: $input-padding-tb $input-padding-rl;
-$input-line-height: calc(#{$input-height} - (#{$input-padding-tb} * 2) - (#{$input-border-size} * 2));
+$input-border: var(--input-border);
+$input-padding: var(--input-padding);
+$input-line-height: var(--input-line-height);
 
 // A couple global settings we want
 * {
