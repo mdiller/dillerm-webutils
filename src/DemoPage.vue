@@ -9,6 +9,7 @@ import DillermNumerical from "./components/controls/DillermNumerical.vue"
 import DillermCheckbox from "./components/controls/DillermCheckbox.vue";
 import DillermSelect from "./components/controls/DillermSelect.vue";
 import DillermSlider from "./components/controls/DillermSlider.vue";
+import DillermText from "./components/controls/DillermText.vue";
 
 const config = ref({
 	github_url: "https://github.com/mdiller/",
@@ -20,9 +21,14 @@ const example_values = ref({
 	number: 1,
 	color: "#00ff00",
 	boolean: true,
+	text: "",
 	option_value: "Example 1",
 	options: [ "Example 1", "Example 2", "Example 3" ]
 })
+
+function typingTriggered(value) {
+	console.log("user just typed: ", value);
+}
 
 </script>
 
@@ -35,7 +41,7 @@ const example_values = ref({
 		</p>
 		<div class="project-box dillerm-card">
 			<a class="project-name" href="https://en.wikipedia.org/wiki/Potato">potato-information</a>
-			<p>The potato is a starchy tuber of the plant Solanum tuberosum</p>
+			<p>{{ example_values.text || 'The potato is a starchy tuber of the plant Solanum tuberosum' }}</p>
 			<span class="dillerm-card-footer">
 				<span>Tasty</span>
 				<span>Wow, very nice</span>
@@ -50,10 +56,20 @@ const example_values = ref({
 				v-model:value="example_values.option_value"
 				:options="example_values.options"
 				:emitvalue="true"
-				:searchable="false"
+				:nullable="true"
+				:searchable="true"
 			/>
 			<br/>
-			<dillerm-checkbox v-model:value="example_values.boolean" />
+			<dillerm-text 
+				v-model:value="example_values.text"
+				:clearable="true"
+				:debounce_delay="500"
+				@typing="typingTriggered"
+			/>
+			<br/>
+			<dillerm-checkbox
+				v-model:value="example_values.boolean"
+			/>
 		</div>
 	</div>
 </template>

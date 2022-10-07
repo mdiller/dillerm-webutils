@@ -8,6 +8,8 @@ import DillermColor from "./controls/DillermColor.vue";
 import DillermNumerical from "./controls/DillermNumerical.vue";
 import DillermSelect from "./controls/DillermSelect.vue";
 import DillermSlider from "./controls/DillermSlider.vue";
+import DillermText from "./controls/DillermText.vue";
+
 
 export default {
 	DillermConfigPanel,
@@ -19,5 +21,6 @@ export default {
 	DillermColor,
 	DillermNumerical,
 	DillermSelect,
-	DillermSlider
+	DillermSlider,
+	DillermText
 };

@@ -67,10 +67,7 @@ export default {
 	},
 	props: {
 		value: {
-			required: true,
-			validator(value) {
-				return value == null || typeof(value) == "object" || typeof(value) == "string";
-			}
+			required: true
 		},
 		options: {
 			// type: Function, // callback(newoptions, optional newstatus), or just a list of options
@@ -108,30 +105,6 @@ export default {
 			TRANSPARENT_IMAGE: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAQAAAAnOwc2AAAAD0lEQVR42mNkwAIYh7IgAAVVAAuInjI5AAAAAElFTkSuQmCC"
 		}
 	},
-	computed: {
-		options_func() {			
-			if (this.options instanceof Function) {
-				return this.options;
-			}
-			else {
-				var newoptions = this.options;
-				if (newoptions.length > 0) {
-					if (typeof newoptions[0] == "string") {
-						newoptions = newoptions.map(opt => { return { label: opt, value: opt } });
-					}
-				}
-				return (input, callback) => {
-					if (input) {
-						var pattern = new RegExp(escapeRegex(input), "i");
-						callback(newoptions.filter(opt => pattern.test(opt.label)))
-					}
-					else {
-						callback(newoptions);
-					}
-				};
-			}
-		}
-	},
 	watch: {
 		input() {
 			this.status = "Searching...";
@@ -147,9 +120,37 @@ export default {
 			else {
 				this.$emit('update:value', this.selected_option);
 			}
+		},
+		options: {
+			handler() {
+				this.compute_options_func();
+			}, immediate: true
 		}
 	},
 	methods: {
+		compute_options_func() {	
+			if (this.options instanceof Function) {
+				this.options_func = this.options;
+			}
+			else {
+				var newoptions = this.options;
+				if (newoptions.length > 0) {
+					if (typeof newoptions[0] == "string") {
+						newoptions = newoptions.map(opt => { return { label: opt, value: opt } });
+					}
+				}
+				this.options_func = (input, callback) => {
+					if (input) {
+						var pattern = new RegExp(DillermWebUtils.utils.escapeRegex(input), "i");
+						callback(newoptions.filter(opt => pattern.test(opt.label)))
+					}
+					else {
+						callback(newoptions);
+					}
+				};
+			}
+			this.recreateOptions();
+		},
 		syncValueDown() {			
 			if (this.value != this.selected_option) {
 				if (this.emitvalue) {					
@@ -227,7 +228,6 @@ export default {
 	},
 	created() {		
 		this.debouncedRecreateOptions = debounce(this.recreateOptions, this.debounce_delay);
-		this.recreateOptions();
 		this.syncValueDown();
 	}
 };
@@ -263,6 +263,7 @@ $option-height: calc(var(--input-height) - (2 * var(--input-border-size)));
 		&:not(.searchable) {
 			color: transparent;
 			cursor: pointer;
+			pointer-events: none;
 		}
 	}
 
@@ -303,6 +304,9 @@ $option-height: calc(var(--input-height) - (2 * var(--input-border-size)));
 		border-radius: var(--input-border-radius);
 		background: var(--input-background);
 		color: var(--input-color);
+
+		font-family: var(--input-font-family);
+		font-size: var(--input-font-size);
 		
 		&:hover,
 		&:focus {

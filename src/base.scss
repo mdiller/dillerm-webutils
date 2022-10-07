@@ -131,6 +131,28 @@ html {
 	}
 }
 
+.dillerm-button {
+	background-color: var(--input-background);
+	width: var(--input-height);
+	height: var(--input-height);
+	border: var(--input-border);
+	border-radius: var(--input-border-radius);
+	cursor: pointer;
+	transition: background-color var(--input-transition-time);
+
+	padding: calc(0.2 * var(--input-height));
+
+	img {
+		width: calc(0.6 * var(--input-height));
+		height: calc(0.6 * var(--input-height));
+	}
+
+	&:hover,
+	&.toggled {
+		background-color: var(--input-hover-color)
+	}
+}
+
 // the main stuff
 .dillerm {
 	font-family: var(--dillerm-font-family);
