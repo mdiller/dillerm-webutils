@@ -1,12 +1,11 @@
 {
 	"name": "@dillerm/webutils",
-	"private": true,
-	"version": "0.0.1",
+	"version": "0.0.3",
 	"main": "build/dillerm.umd.js",
 	"module": "build/dillerm.es.js",
 	"files": [
 		"build/*",
-		"src/components/*"
+		"src/*"
 	],
 	"type": "module",
 	"scripts": {

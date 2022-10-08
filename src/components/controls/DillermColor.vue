@@ -3,14 +3,14 @@
 		<div v-if="!value">
 			{{ placeholder }}
 		</div>
-		<input type="color" v-model="val" />
+		<input type="color" :value="val || '#00ff00'" @input="event => val = event.target.value" />
 		<span v-if="value">
 			{{value}}
 		</span>
 		<CrossIcon  
 			class="dillerm-input-clear"
-			v-if="value" 
-			@click="value = null" />
+			v-if="val" 
+			@click="val = null" />
 	</div>
 </template>
 
@@ -21,8 +21,10 @@ export default {
 	name: 'dillerm-color',
 	props: {
 		value: {
-			type: String,
-			required: true
+			type: String
+		},
+		hue: {
+			type: Number
 		},
 		placeholder: {
 			type: String,
@@ -40,6 +42,7 @@ export default {
 	watch: {
 		val() {
 			this.$emit('update:value', this.val);
+			this.$emit('hue', this.val ? DillermWebUtils.utils.hexToHsv(this.val).h : null);
 		}
 	},
 	created() {
