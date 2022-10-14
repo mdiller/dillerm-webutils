@@ -142,7 +142,8 @@ html {
 
 	padding: calc(0.2 * var(--input-height));
 
-	img {
+	img,
+	svg {
 		width: calc(0.6 * var(--input-height));
 		height: calc(0.6 * var(--input-height));
 	}
