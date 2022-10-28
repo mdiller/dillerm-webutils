@@ -186,6 +186,14 @@ html {
 
 $tooltip-fade-amount: 15%;
 
+
+@media (hover: hover) {
+	:hover > .dillerm-tooltip {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
 .dillerm-tooltip {
 	color: var(--input-color);
 	border-radius: 3px;
@@ -198,14 +206,7 @@ $tooltip-fade-amount: 15%;
 	position: absolute;
 	white-space: nowrap;
 	padding: 8px 12px;
-	transition: 0.3s all;
-
-	@media (hover: hover) {
-		:hover > & {
-			opacity: 1;
-			visibility: visible;
-		}
-	}
+	transition: 0.3 all; /* 0.3s */
 
 	/* position specific */
 	&.right {
@@ -243,21 +244,5 @@ $tooltip-fade-amount: 15%;
 			transform: translate(-50%, 100%);
 		}
 	}
-
-	// Arrow-stuff
-	// &::after {
-	// 	content: " ";
-	// 	position: absolute;
-	// 	border-width: 5px;
-	// 	border-style: solid;
-	// }
-
-	// /* position specific */
-	// &::after {
-	// 	top: 50%;
-	// 	right: 100%;
-	// 	border-color: transparent #222 transparent transparent;
-	// 	margin-top: -5px;
-	// }
 }
 

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed } from "vue"
+import { ref, reactive, computed, onMounted } from "vue"
 
 import fizzgig_svg_url from "../assets/fizzgig.svg?url";
 import github_svg_url from "../assets/github.svg?url";
@@ -24,6 +24,15 @@ const props = defineProps({
 const nav_gradient = reactive(new ColorGradient(["#1b1f27", "#15181e"]));
 
 const show_config = ref(false);
+
+onMounted(() => {
+	var body = document.querySelector("body");
+	var overlay = document.createElement("div");
+	overlay.classList.add("dillerm-loading-overlay");
+	body.appendChild(overlay);
+	setTimeout(() => body.classList.add("dillerm-loaded"), 200);
+	setTimeout(() => body.removeChild(overlay), 2000);
+});
 
 </script>
 
@@ -63,6 +72,44 @@ const show_config = ref(false);
 
 <style lang="scss">
 
+body:not(.dillerm-loaded) .logo-text {
+	transform: translateX(-50%) translateY(-200%);
+}
+
+body:not(.dillerm-loaded) .dillerm-nav-bar .dillerm-icon-right {
+	transform: translateX(150%);
+}
+
+body:not(.dillerm-loaded) .dillerm-nav-bar .dillerm-icon-left {
+	transform: translateX(-150%);
+}
+
+body:not(.dillerm-loaded) .dillerm-loading-overlay {
+	opacity: 1.0;
+	z-index: 999;
+}
+
+.dillerm-loaded .logo-text {
+	transition: 0.2s transform ease-out;
+}
+
+.dillerm-loaded .dillerm-nav-bar .dillerm-icon {
+	transition: 0.5s transform ease-out;
+}
+
+.dillerm-loading-overlay {
+	// z-index: -100;
+	transition: 1s opacity ease-out, 0s 1s z-index;
+	opacity: 0.0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: var(--background-color1);
+	pointer-events: none;
+}
+
 .dillerm-nav-bar {
 	position: relative;
 	z-index: 1001;
@@ -73,10 +120,6 @@ const show_config = ref(false);
 	background-repeat: repeat; */
 	background-color: var(--background-color3);
 	box-shadow: 0 0 10px 3px var(--background-color3);
-
-	.dillerm-app-name {
-		box-shadow: 0 0 10px 3px var(--background-color3);
-	}
 
 	.dillerm-icon {
 		position: absolute;
@@ -106,7 +149,6 @@ const show_config = ref(false);
 
 	.logo-text {
 		margin-top: calc(var(--navbar-height) / 2);
-		transition: all 0.5s ease;
 		background: var(--background-color4);
 		padding: 4px 8px;
 		box-shadow: 0px 0px 20px 10px var(--background-color4);
