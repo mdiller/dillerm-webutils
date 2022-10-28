@@ -12,6 +12,7 @@ import DillermSlider from "./components/controls/DillermSlider.vue";
 import DillermText from "./components/controls/DillermText.vue";
 
 const config = ref({
+	title: "Dillerm WebUtils (Demo)",
 	github_url: "https://github.com/mdiller/",
 	parameters: example_data,
 	// parameters_callback: values => console.dir(values)
@@ -35,7 +36,6 @@ function typingTriggered(value) {
 <template>
 	<DillermNavBar :config="config" />
 	<div id="content" class="dillerm dillerm-content">
-		<h1>WebUtils Demo Page</h1>
 		<p>
 			The potato is a starchy tuber of the plant Solanum tuberosum and is a root vegetable and a fruit native to the Americas. The plant is a perennial in the nightshade family Solanaceae.
 		</p>

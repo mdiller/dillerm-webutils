@@ -11,7 +11,7 @@
 	--background-color2: hsl(var(--main-hue), var(--main-saturation), calc(var(--value-base) - (1 * var(--value-step))));
 	--background-color3: hsl(var(--main-hue), var(--main-saturation), calc(var(--value-base) - (2 * var(--value-step))));
 	--background-color4: hsl(var(--main-hue), var(--main-saturation), calc(var(--value-base) - (3 * var(--value-step))));
-	--highlight-color1: #C67F41;
+	--highlight-color1: hsl(var(--main-hue), 60%, 50%);
 	--navbar-color1: var(--background-color3);
 	--navbar-color2: var(--background-color4);
 

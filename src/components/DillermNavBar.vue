@@ -38,14 +38,13 @@ const show_config = ref(false);
 			:height="70"
 			:color_gradient="nav_gradient"
 			:triangle_count_y="3"/>
-		<div class="logo-container">
+		<!-- <div class="logo-container">
 			<img :src="fizzgig_svg_url" />
-		</div>
-		<div class="logo-text logo-text-left">
-			DILLERM
-		</div>
-		<div class="logo-text logo-text-right">
-			TOOLS
+		</div> -->
+		<div v-if="config.title" class="logo-text-container">
+			<div class="logo-text">
+				{{config.title}}
+			</div>
 		</div>
 		<a v-if="config.github_url" :href="config.github_url" class="dillerm-icon dillerm-icon-left">
 			<img :src="github_svg_url" />
@@ -79,27 +78,6 @@ const show_config = ref(false);
 		box-shadow: 0 0 10px 3px var(--background-color3);
 	}
 
-	.logo-container {
-		transform: scale(100.1%); /* to prevent weirdness when we do a real scale */
-		z-index: 2000;
-		position: relative;
-		padding-top: 3px;
-		width: 64px;
-		height: 64px;
-		margin: auto;
-		cursor: grab;
-		transition: all 0.5s ease-in-out;
-	}
-
-	.logo-container > img {
-		width: 100%;
-	}
-
-	.logo-container:hover {
-		transform: scale(115%);
-		filter: drop-shadow(0px 0px 4px var(--highlight-color1));
-	}
-
 	.dillerm-icon {
 		position: absolute;
 		top: 0px;
@@ -119,29 +97,25 @@ const show_config = ref(false);
 		left: 0px;
 	}
 
-	.logo-text {
-		transition: all 0.5s ease;
-		opacity: 0%;
+	.logo-text-container {
 		position: absolute;
 		top: 0px;
 		left: 50%;
 		height: var(--navbar-height);
-		line-height: var(--navbar-height);
-		color: var(--highlight-color1);
-		font-weight: bold;
-		font-size: 16px;
-		font-family: var(--input-numerical-font-family);
-	}
-	.logo-text-left {
-		transform: translateX(-100%);
-		padding-right: 45px;
-	}
-	.logo-text-right {
-		padding-left: 45px;
 	}
 
-	.logo-container:hover ~ .logo-text {
-		opacity: 75%;
+	.logo-text {
+		margin-top: calc(var(--navbar-height) / 2);
+		transition: all 0.5s ease;
+		background: var(--background-color4);
+		padding: 4px 8px;
+		box-shadow: 0px 0px 20px 10px var(--background-color4);
+		font-weight: bold;
+		transform: translateX(-50%) translateY(-50%);
+		white-space: nowrap;
+
+		font-size: 26px;
+		opacity: 90%;
 	}
 
 	.config-gear {
