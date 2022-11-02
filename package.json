@@ -1,6 +1,6 @@
 {
 	"name": "@dillerm/webutils",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"main": "build/dillerm.umd.js",
 	"module": "build/dillerm.es.js",
 	"files": [

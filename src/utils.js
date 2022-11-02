@@ -32,9 +32,9 @@ function rgbToHsv(rgb) {
 	}
   
 	return {
-		h: h * 255,
-		s: s * 255,
-		v: v * 255
+		h: h * 356,
+		s: s * 100,
+		v: v * 100
 	};
 }
 
