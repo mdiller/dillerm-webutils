@@ -9,8 +9,8 @@ function hexToRgb(hex) {
 }
 
 // from https://gist.github.com/mjackson/5311256
-function hexToHsv(hex) {
-	var { r, g, b } = hexToRgb(hex);
+function rgbToHsv(rgb) {
+	var { r, g, b } = rgb;
 	r /= 255, g /= 255, b /= 255;
   
 	var max = Math.max(r, g, b), min = Math.min(r, g, b);
@@ -36,7 +36,39 @@ function hexToHsv(hex) {
 		s: s * 255,
 		v: v * 255
 	};
-  }
+}
+
+// from https://gist.github.com/mjackson/5311256
+function hsvToRgb(hsv) {
+	var { h, s, v } = hsv;
+	h /= 356, s /= 100, v /= 100;
+	var r, g, b;
+
+	var i = Math.floor(h * 6);
+	var f = h * 6 - i;
+	var p = v * (1 - s);
+	var q = v * (1 - f * s);
+	var t = v * (1 - (1 - f) * s);
+
+	switch (i % 6) {
+		case 0: r = v, g = t, b = p; break;
+		case 1: r = q, g = v, b = p; break;
+		case 2: r = p, g = v, b = t; break;
+		case 3: r = p, g = q, b = v; break;
+		case 4: r = t, g = p, b = v; break;
+		case 5: r = v, g = p, b = q; break;
+	}
+
+	return {
+		r: r * 255,
+		g: g * 255,
+		b: b * 255
+	};
+}
+
+function hexToHsv(hex) {
+	return rgbToHsv(hexToRgb(hex));
+}
 
 function rgbToHex(rgb) {
 	function componentToHex(c) {
@@ -157,5 +189,7 @@ export {
 	debounceAsync,
 	hexToHsv,
 	hexToRgb,
-	rgbToHex
+	rgbToHex,
+	rgbToHsv,
+	hsvToRgb
 }

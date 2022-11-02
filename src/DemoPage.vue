@@ -12,7 +12,7 @@ import DillermSlider from "./components/controls/DillermSlider.vue";
 import DillermText from "./components/controls/DillermText.vue";
 
 const config = ref({
-	title: "Dillerm WebUtils (Demo)",
+	title: "WebUtils Demo",
 	github_url: "https://github.com/mdiller/",
 	parameters: example_data,
 	// parameters_callback: values => console.dir(values)

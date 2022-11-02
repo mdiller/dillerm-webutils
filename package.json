@@ -1,6 +1,6 @@
 {
 	"name": "@dillerm/webutils",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"main": "build/dillerm.umd.js",
 	"module": "build/dillerm.es.js",
 	"files": [
@@ -11,13 +11,13 @@
 	"scripts": {
 		"dev": "vite --host",
 		"build": "vite build",
-		"devbuild": "set DEBUG_MODE=true && vite build && sh _scripts/sync_libdev.sh"
+		"devbuild": "set DEBUG_MODE=true && vite build && sh _scripts/sync_libdev.sh",
+		"release": "set DEBUG_MODE=true && vite build && sh _scripts/sync_libdev.sh && vite build && npm publish --access=public"
 	},
 	"dependencies": {
 		"vue": "^3.2.37"
 	},
 	"devDependencies": {
-		"@quasar/vite-plugin": "^1.1.1",
 		"@vitejs/plugin-vue": "^3.0.3",
 		"sass": "^1.54.9",
 		"vite": "^3.0.7",
