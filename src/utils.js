@@ -247,7 +247,7 @@ export {
 	hexToRgb,
 	rgbToHex,
 	rgbToHsv,
-	hsvToRgb,
 	rgbToHsl,
+	hsvToRgb,
 	hslToRgb
 }
