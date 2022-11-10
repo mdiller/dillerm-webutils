@@ -26,12 +26,21 @@ const nav_gradient = reactive(new ColorGradient(["#1b1f27", "#15181e"]));
 const show_config = ref(false);
 
 onMounted(() => {
+	// Loading overlay
 	var body = document.querySelector("body");
 	var overlay = document.createElement("div");
 	overlay.classList.add("dillerm-loading-overlay");
 	body.appendChild(overlay);
 	setTimeout(() => body.classList.add("dillerm-loaded"), 200);
 	setTimeout(() => body.removeChild(overlay), 2000);
+
+	// Title
+	var head = document.querySelector("head");
+	if (props.config.title && !head.querySelector("title")) {
+		var title = document.createElement("title");
+		title.innerText = props.config.title;
+		head.appendChild(title);
+	}
 });
 
 </script>

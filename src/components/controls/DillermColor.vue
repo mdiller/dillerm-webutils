@@ -16,6 +16,7 @@
 
 <script>
 import CrossIcon from "../../assets/cross.svg?component";
+import { hexToHsv } from "../../utils.js";
 
 export default {
 	name: 'dillerm-color',
@@ -42,7 +43,7 @@ export default {
 	watch: {
 		val() {
 			this.$emit('update:value', this.val);
-			this.$emit('hue', this.val ? DillermWebUtils.utils.hexToHsv(this.val).h : null);
+			this.$emit('hue', this.val ? hexToHsv(this.val).h : null);
 		}
 	},
 	created() {
