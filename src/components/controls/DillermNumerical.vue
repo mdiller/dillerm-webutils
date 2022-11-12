@@ -3,16 +3,10 @@
 		<input :class="{ invalid: !valid }" type="number" v-model="val">
 		<span>
 			<div @click="tryChange(1)">
-				<svg viewBox="0 0 32 32">
-					<path d="M 8,16 L 24,16 M 16,8 L 16,24">
-					</path>
-				</svg>
+				<i class="fa-solid fa-plus"></i>
 			</div>
 			<div @click="tryChange(-1)">
-				<svg viewBox="0 0 32 32">
-					<path d="M 8,16 L 24,16">
-					</path>
-				</svg>
+				<i class="fa-solid fa-minus"></i>
 			</div>
 		</span>
 	</div>
@@ -84,14 +78,11 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../base.scss";
 
 .dillerm-numerical {
-	& {
-		width: 100%;
-		height: $input-height;
-		display: flex;
-	}
+	width: 100%;
+	height: var(--input-height);
+	display: flex;
 
 	&:hover input,
 	& input:focus {
@@ -100,17 +91,17 @@ export default {
 
 	input {
 		display: block;
-		padding: $input-padding;
+		padding: var(--input-padding);
 		width: 100%;
-		min-height: $input-height;
+		min-height: var(--input-height);
 		appearance: textfield;
 
 		font-family: var(--input-numerical-font-family);
 		font-size: var(--input-numerical-font-size);
 
-		border: $input-border;
-		border-radius: $input-border-radius 0 0 $input-border-radius;
-		background: $input-background;
+		border: var(--input-border);
+		border-radius: var(--input-border-radius) 0 0 var(--input-border-radius);
+		background: var(--input-background);
 		color: var(--input-color);
 
 		&:hover,
@@ -120,41 +111,33 @@ export default {
 	}
 
 	> span {
-		& {
-			width: calc(#{$input-height} * 0.50);
-			height: 100%;
-		}
+		width: calc(var(--input-height) * 0.50);
+		height: 100%;
 
 		div {
-			& {
-				cursor: pointer;
-				position: relative;
-				background: $input-background;
-				height: 50%;
-				border-top: $input-border;
-				border-right: $input-border;
-				border-radius: 0 $input-border-radius 0 0;
-			}
+			cursor: pointer;
+			position: relative;
+			background: var(--input-background);
+			height: 50%;
+			border-top: var(--input-border);
+			border-right: var(--input-border);
+			border-radius: 0 var(--input-border-radius) 0 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 
 			&:last-child {
-				border-bottom: $input-border;
-				border-radius: 0 0 $input-border-radius 0;
+				border-bottom: var(--input-border);
+				border-radius: 0 0 var(--input-border-radius) 0;
 			}
 
-			svg {
-				pointer-events: none;
-				position: absolute;
-				left: 0;
-				right: 0;
-				top: 0;
-				bottom: 0;
-				stroke: var(--input-color);
-				stroke-width: 4px;
+			i {
+				color: var(--input-color);
 				transition: var(--input-transition-time); 
 			}
 
-			&:hover svg {
-				stroke: var(--input-highlight-color);
+			&:hover i {
+				color: var(--input-highlight-color);
 			}
 		}
 	}

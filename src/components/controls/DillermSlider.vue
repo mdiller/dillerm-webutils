@@ -21,6 +21,7 @@
 				></span>
 				<span
 					class="slider-bar-grabber"
+					:class="{ 'out-of-bounds': is_out_of_bounds }"
 					:style="{ left: pretty_drag_percent }"
 				></span>
 			</span>
@@ -43,6 +44,36 @@ function stepRound(number, increment, offset) {
 	return Math.round((number - offset) / increment ) * increment + offset;
 }
 
+const throttle = (callback, time) => {
+	var throttlePause;
+	var throttleCalledWhilePaused;
+	return () => {
+		if (!throttlePause && !throttleCalledWhilePaused) {
+			callback() // call the callback right away if we're not currently throttling
+		}
+		if (throttlePause) {
+			throttleCalledWhilePaused = true;
+			return;
+		}
+
+		throttlePause = true;
+		throttleCalledWhilePaused = false;
+		function doTheTimeout() {
+			setTimeout(() => {
+				if (throttleCalledWhilePaused) {
+					doTheTimeout();
+					throttleCalledWhilePaused = false;
+					callback();
+				}
+				else {
+					throttlePause = false;
+				}
+			}, time);
+		}
+		doTheTimeout();
+	};
+}
+
 export default {
 	name: 'dillerm-slider',
 	props: {
@@ -63,6 +94,10 @@ export default {
 			default: 1
 		},
 		debounce: {
+			type: Number,
+			default: 0
+		},
+		throttle: {
 			type: Number,
 			default: 0
 		},
@@ -93,14 +128,19 @@ export default {
 		is_integer() {
 			return Number.isInteger(this.step) && Number.isInteger(this.min)
 		},
+		is_out_of_bounds() {
+			var percent = this.dragging ? this.drag_percent : (this.val - this.min) / (this.max - this.min);
+			return percent > 1 || percent < 0;
+		},
 		pretty_drag_percent() {
 			var percent = this.dragging ? this.drag_percent : (this.val - this.min) / (this.max - this.min);
+			percent = percent > 1 ? 1 : (percent < 0 ? 0 : percent);
 			return `${(percent * 100).toFixed(2)}%`
 		}
 	},
 	watch: {
 		val() {
-			this.debounced_emit();
+			this.handle_emit();
 			this.valid = true;
 		},
 		value() {
@@ -108,6 +148,9 @@ export default {
 		}
 	},
 	methods: {
+		emitValue() {
+			this.$emit('update:value', Number(this.val));
+		},
 		setPercent(percent) {
 			percent = percent < 0 ? 0 : percent;
 			percent = percent > 1 ? 1 : percent;
@@ -153,23 +196,22 @@ export default {
 	},
 	created() {
 		this.val = this.value;
-		this.debounced_emit = debounce(() => this.$emit('update:value', Number(this.val)), this.debounce);
+		this.handle_emit = this.debounce ? debounce(this.emitValue, this.debounce) : (this.throttle ? throttle(this.emitValue, this.throttle) : this.emitValue);
 	}
 }
 </script>
 
 <style lang="scss">
-@import "../../base.scss";
 
 .dillerm-slider {
 	position: relative;
 	& {
-		border: $input-border;
-		border-radius: $input-border-radius;
+		border: var(--input-border);
+		border-radius: var(--input-border-radius);
 		width: 100%;
-		height: $input-height;
+		height: var(--input-height);
 		display: flex;
-		background: $input-background;
+		background: var(--input-background);
 		transition: background var(--input-transition-time);
 	}
 
@@ -183,9 +225,9 @@ export default {
 	}
 
 	span.slider-number {
-		line-height: calc($input-height - (2 * $input-border-size));
+		line-height: calc(var(--input-height) - (2 * var(--input-border-size)));
 		color: var(--input-color);
-		border-right: $input-border;
+		border-right: var(--input-border);
 		min-width: 46px;
 		padding: 0px 8px;
 		text-align: center;
@@ -198,7 +240,7 @@ export default {
 	// 	// background: red;
 	// 	appearance: textfield;
 	// 	border-style: none;
-	// 	min-height: calc($input-height - (2 * $input-border-size)) !important;
+	// 	min-height: calc(var(--input-height) - (2 * var(--input-border-size))) !important;
 	// }
 	$grabber-width: 15px;
 
@@ -218,7 +260,7 @@ export default {
 
 		* {
 			user-select: none;
-			height: calc($input-height - (2 * $input-border-size));
+			height: calc(var(--input-height) - (2 * var(--input-border-size)));
 		}
 
 		span {
@@ -231,12 +273,12 @@ export default {
 		}
 
 		.slider-bar-prefix {
-			border-radius: $input-border-radius 0px 0px $input-border-radius;
+			border-radius: var(--input-border-radius) 0px 0px var(--input-border-radius);
 			background: var(--input-color);
 			opacity: 50%;
 		}
 		.slider-bar-postfix {
-			border-radius: 0px $input-border-radius $input-border-radius 0px;
+			border-radius: 0px var(--input-border-radius) var(--input-border-radius) 0px;
 		}
 
 		.slider-bar-back {
@@ -255,11 +297,15 @@ export default {
 			position: absolute;
 			left: 25%;
 			width: $grabber-width;
-			border-radius: $input-border-radius;
+			border-radius: var(--input-border-radius);
 			transform: translateX(-50%);
 			display: inline-block;
 			background: var(--input-color);
 			transition: background var(--input-transition-time), transform 0.25s;
+
+			&.out-of-bounds {
+				transform: translateX(-50%) scale(120%);
+			}
 		}
 		
 	}

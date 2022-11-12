@@ -42,29 +42,24 @@
 				{{option.label}}
 			</div>
 		</div>
-		<CrossIcon 
+		<i	
 			v-if="!focused && selected_option && nullable" 
-			@click.stop="selectOption(null)" 
-			class="select-search-clear" />
-		<DownIcon
-			:class="{'select-search-down': true, expanded: focused }"
+			class="dillerm-input-clear"
+			@click.stop="selectOption(null)"></i>
+		<i
+			class="dillerm-input-expand"
+			:class="{ expanded: focused }"
 			@mousedown.prevent.stop="toggleEdit"
 			@focus.stop
-			@click.stop />
+			@click.stop></i>
 	</div>
 </template>
 
 <script>
-import CrossIcon from "../../assets/cross.svg?component";
-import DownIcon from "../../assets/down.svg?component";
 import { escapeRegex, debounce } from '../../utils.js';
 
 export default {
 	name: "dillerm-select",
-	components: {
-		CrossIcon,
-		DownIcon
-	},
 	props: {
 		value: {
 			required: true
@@ -237,14 +232,10 @@ export default {
 $option-height: calc(var(--input-height) - (2 * var(--input-border-size)));
 
 .dillerm-select {
-	$button-icon-side-padding: 5px;
-	$button-icon-size: 20px;
-
 	position: relative;
 	text-align: left;
 	color: var(--input-color);
 	cursor: pointer;
-	
 
 	& > input {
 		cursor: pointer;
@@ -289,8 +280,8 @@ $option-height: calc(var(--input-height) - (2 * var(--input-border-size)));
 		& > input {
 			background: var(--input-hover-color);
 		}
-		& > .select-search-down {
-			fill: var(--input-highlight-color);
+		& > .dillerm-input-expand {
+			color: var(--input-highlight-color);
 		}
 	}
 	
@@ -340,7 +331,7 @@ $option-height: calc(var(--input-height) - (2 * var(--input-border-size)));
 			padding: var(--input-padding);
 			line-height: var(--input-line-height);
 
-			right: calc((#{$button-icon-size} * 2) + #{$button-icon-side-padding});
+			right: calc((var(--input-icon-button-size) * 2) + var(--input-icon-button-side-padding));
 			padding-right: 0px;
 			overflow: hidden;
 			text-overflow: ellipsis;
@@ -378,33 +369,8 @@ $option-height: calc(var(--input-height) - (2 * var(--input-border-size)));
 		color: #777777;
 	}
 
-	svg {
-		width: $button-icon-size;
-		height: $button-icon-size;
-		position: absolute;
-		top: calc((#{var(--input-height)} - #{$button-icon-size}) / 2);
-		right: 0;
-		cursor: pointer;
-		fill: var(--input-color);
-		opacity: 0.75;
-		transition: 0.25s;
-
-		&.select-search-down {
-			right: $button-icon-side-padding;
-
-			&.expanded {
-				transform: rotate(180deg);
-			}
-		}
-
-		&.select-search-clear {
-			right: calc(#{$button-icon-size} + #{$button-icon-side-padding});
-
-			&:hover {
-				fill: red;
-				opacity: 1;
-			}
-		}
+	.dillerm-input-clear {
+		right: calc(var(--input-icon-button-size) + var(--input-icon-button-side-padding));
 	}
 }
 </style>

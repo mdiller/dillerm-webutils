@@ -31,6 +31,7 @@ export default defineConfig({
 				assetFileNames: (assetInfo) => {
 					if (assetInfo.name == "style.css")
 						return "dillerm.css";
+					console.log(assetInfo.Name)
 					return assetInfo.name;
 				},
 				globals: {

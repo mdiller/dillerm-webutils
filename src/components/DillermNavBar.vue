@@ -56,22 +56,19 @@ onMounted(() => {
 			:height="70"
 			:color_gradient="nav_gradient"
 			:triangle_count_y="3"/>
-		<!-- <div class="logo-container">
-			<img :src="fizzgig_svg_url" />
-		</div> -->
-		<div v-if="config.title" class="logo-text-container">
-			<div class="logo-text">
+		<div v-if="config.title" class="title-container">
+			<div class="title">
 				{{config.title}}
 			</div>
 		</div>
 		<a v-if="config.github_url" :href="config.github_url" class="dillerm-icon dillerm-icon-left">
-			<img :src="github_svg_url" />
+			<i class="fa-brands fa-github"></i>
 			<span class="dillerm-tooltip right">
 				VIEW SOURCE
 			</span>
 		</a>
 		<div v-if="config.parameters" @click="show_config = !show_config" class="dillerm-icon dillerm-icon-right config-gear">
-			<img :src="gear_svg_url" :class="{ 'spun-gear': show_config }" />
+			<i class="fa-solid fa-gear" :class="{ 'spun-gear': show_config }"></i>
 			<span class="dillerm-tooltip left">
 				CONFIGURATION
 			</span>
@@ -81,7 +78,7 @@ onMounted(() => {
 
 <style lang="scss">
 
-body:not(.dillerm-loaded) .logo-text {
+body:not(.dillerm-loaded) .title {
 	transform: translateX(-50%) translateY(-200%);
 }
 
@@ -98,12 +95,12 @@ body:not(.dillerm-loaded) .dillerm-loading-overlay {
 	z-index: 999;
 }
 
-.dillerm-loaded .logo-text {
-	transition: 0.2s transform ease-out;
+.dillerm-loaded .title {
+	transition: transform 0.2s ease-out;
 }
 
 .dillerm-loaded .dillerm-nav-bar .dillerm-icon {
-	transition: 0.5s transform ease-out;
+	transition: transform 0.5s ease-out, opacity 0.5s;
 }
 
 .dillerm-loading-overlay {
@@ -133,9 +130,14 @@ body:not(.dillerm-loaded) .dillerm-loading-overlay {
 	.dillerm-icon {
 		position: absolute;
 		top: 0px;
-		padding: calc(0.25 * var(--navbar-height));
 		width: var(--navbar-height);
 		height: var(--navbar-height);
+		font-size: 32px;
+		color: var(--input-color) !important;
+		text-decoration: none !important;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
 		&:not(:hover) {
 			opacity: 90%;
@@ -147,16 +149,17 @@ body:not(.dillerm-loaded) .dillerm-loading-overlay {
 	}
 	.dillerm-icon-left {
 		left: 0px;
+		font-size: 36px;
 	}
 
-	.logo-text-container {
+	.title-container {
 		position: absolute;
 		top: 0px;
 		left: 50%;
 		height: var(--navbar-height);
 	}
 
-	.logo-text {
+	.title {
 		margin-top: calc(var(--navbar-height) / 2);
 		background: var(--background-color4);
 		padding: 4px 8px;
@@ -173,10 +176,10 @@ body:not(.dillerm-loaded) .dillerm-loading-overlay {
 		cursor: pointer;
 	}
 
-	.config-gear > img {
+	.config-gear > i {
 		transition: transform 0.5s ease-in-out;
 	}
-	.config-gear > img.spun-gear {
+	.config-gear > i.spun-gear {
 		transform: rotate(180deg);
 	}
 

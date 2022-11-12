@@ -7,15 +7,14 @@
 		<span v-if="value">
 			{{value}}
 		</span>
-		<CrossIcon  
+		<i
 			class="dillerm-input-clear"
 			v-if="val" 
-			@click="val = null" />
+			@click="val = null"></i>
 	</div>
 </template>
 
 <script>
-import CrossIcon from "../../assets/cross.svg?component";
 import { hexToHsv } from "../../utils.js";
 
 export default {
@@ -31,9 +30,6 @@ export default {
 			type: String,
 			default: "Select a color..."
 		}
-	},
-	components: {
-		CrossIcon
 	},
 	data() {
 		return {
@@ -54,9 +50,6 @@ export default {
 
 <style lang="scss">
 
-
-$button-icon-side-padding: 5px;
-$button-icon-size: 20px;
 .dillerm-color {
 	position: relative;
 	width: 100%;
@@ -114,25 +107,11 @@ $button-icon-size: 20px;
 	&:focus-within > span {
 		opacity: 0.95;
 	}
-	
-	svg.dillerm-input-clear {
-		width: $button-icon-size;
-		height: $button-icon-size;
-		position: absolute;
-		top: calc((#{var(--input-height)} - #{$button-icon-size}) / 2);
-		right: 0;
-		cursor: pointer;
-		fill: var(--input-color);
-		opacity: 0.75;
-		transition: 0.25s;
-		filter: drop-shadow(0px 0px 3px black);
 
+	.dillerm-input-clear {
 		right: 80px;
-
-		&:hover {
-			fill: red;
-			opacity: 1;
-		}
+		background: rgba(0, 0, 0, 0.5);
+		border-radius: var(--input-border-radius);
 	}
 }
 

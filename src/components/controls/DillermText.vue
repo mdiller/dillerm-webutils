@@ -4,9 +4,10 @@
 			v-model="val"
 			type="text"
 			:placeholder="placeholder">
-		<CrossIcon 
-			:class="{ 'text-clear-button': true, 'hidden': !clearable || val == '' }"
-			@click="val = ''" />
+		<i 
+			class="dillerm-input-clear"
+			:class="{ hidden: !clearable || val == '' }"
+			@click="val = ''"></i>
 	</div>
 </template>
 
@@ -101,23 +102,8 @@ $button-icon-size: 20px;
 		}
 	}
 
-	.text-clear-button {
-		width: $button-icon-size;
-		height: $button-icon-size;
-		position: absolute;
-		top: calc((#{var(--input-height)} - #{$button-icon-size}) / 2);
-		right: 0;
-		cursor: pointer;
-		fill: var(--input-color);
-		opacity: 0.75;
-		transition: opacity var(--input-transition-time), fill var(--input-transition-time);
-
-		right: $button-icon-side-padding;
-
-		&:hover {
-			fill: red;
-			opacity: 1;
-		}
+	.dillerm-input-clear {
+		right: 10px;
 
 		&.hidden {
 			transition: opacity 0s;

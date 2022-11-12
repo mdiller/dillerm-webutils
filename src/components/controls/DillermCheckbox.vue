@@ -8,19 +8,15 @@
 			@keyup.esc="endEdit">
 		<span v-if="value">
 		</span>
-		<CrossIcon 
+		<i 
 			v-if="!value"
-			class="anti-check" />
+			class="fa-solid fa-xmark anti-check" />
 	</div>
 </template>
 
 <script>
-import CrossIcon from "../../assets/cross.svg?component";
 export default {
 	name: 'dillerm-checkbox',
-	components: {
-		CrossIcon
-	},
 	props: {
 		value: {
 			type: Boolean,
@@ -56,19 +52,18 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../base.scss";
 
 .dillerm-checkbox {
 	// change the 1.0 in the thing below to change the checkbox relative size
-	$box-size: calc((#{$input-height} * 1.0));
+	--box-size: calc((var(--input-height) * 1.0));
 	
 	position: relative;
-	width: $box-size;
-	height: $box-size;
-	border: $input-border;
-	border-radius: $input-border-radius;
+	width: var(--box-size);
+	height: var(--box-size);
+	border: var(--input-border);
+	border-radius: var(--input-border-radius);
 	position: relative;
-	background: $input-background;
+	background: var(--input-background);
 	transition: var(--input-transition-time);
 	cursor: pointer;
 
@@ -82,7 +77,7 @@ export default {
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		margin: $input-border-size;
+		margin: var(--input-border-size);
 		right: 0;
 		left: 0;
 		top: 0;
@@ -97,16 +92,26 @@ export default {
 		position: absolute;
 		top: 55%;
 
-		border-right: calc(#{$box-size} / 7) solid var(--input-color);
-		border-bottom: calc(#{$box-size} / 7) solid var(--input-color);
+		border-right: calc(var(--box-size) / 7) solid var(--input-color);
+		border-bottom: calc(var(--box-size) / 7) solid var(--input-color);
 		transform: rotate(45deg);
 		transform-origin: bottom left;
 		animation: checkbox-check 75ms forwards;
 	}
 
 	.anti-check {
-		fill: var(--input-color);
+		color: var(--input-color);
 		opacity: 15%;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 28px;
+		
 	}
 
 	@keyframes checkbox-check{
@@ -115,21 +120,21 @@ export default {
 			
 			width: 0%;
 			height: 0%;
-			transform: translate3d(0,0,0) rotate(45deg);
+			transform: translate3d(0, 0, 0) rotate(45deg);
 		}
 		33% {
 			left: 5%;
 
 			width: 19%;
 			height: 0px;
-			transform: translate3d(0,0,0) rotate(45deg);
+			transform: translate3d(0, 0, 0) rotate(45deg);
 		}
 		100% {
 			left: 15%;
 			
 			width: 19%;
-			height: calc(#{$box-size} * 0.50);
-			transform: translate3d(0, calc(#{$box-size} * -0.60),0) rotate(45deg);
+			height: calc(var(--box-size) * 0.50);
+			transform: translate3d(0, calc(var(--box-size) * -0.60), 0) rotate(45deg);
 		}
 	}
 }

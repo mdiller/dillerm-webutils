@@ -67,6 +67,11 @@ function typingTriggered(value) {
 				@typing="typingTriggered"
 			/>
 			<br/>
+			<dillerm-slider
+				v-model:value="example_values.number"
+				:throttle="500"
+			/>
+			<br/>
 			<dillerm-checkbox
 				v-model:value="example_values.boolean"
 			/>

@@ -49,11 +49,17 @@
 	
 	--input-numerical-font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
 	--input-numerical-font-size: 12px;
+
+	--input-icon-button-size: 20px;
+	--input-icon-button-font-size: 16px;
+	--input-icon-button-side-padding: 5px;
 }
 
 // @import "themes/discord.scss";
 
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800&display=swap");
+@import "assets/fonts/worksans.css";
+
+@import "assets/fonts/fontawesome.css";
 
 
 /* this is so that I can make the actual css variables more specific */
@@ -206,7 +212,7 @@ $tooltip-fade-amount: 15%;
 	position: absolute;
 	white-space: nowrap;
 	padding: 8px 12px;
-	transition: 0.3 all; /* 0.3s */
+	transition: all 0.3s; /* 0.3s */
 
 	/* position specific */
 	&.right {
@@ -246,3 +252,52 @@ $tooltip-fade-amount: 15%;
 	}
 }
 
+.dillerm-input-icon-button {
+	width: var(--input-icon-button-size);
+	height: var(--input-icon-button-size);
+	font-size: var(--input-icon-button-font-size);
+	padding: calc((var(--input-icon-button-size) - var(--input-icon-button-font-size)) / 2);
+	position: absolute;
+	top: calc((var(--input-height) - var(--input-icon-button-size)) / 2);
+	right: var(--input-icon-button-side-padding);
+	cursor: pointer;
+	color: var(--input-color);
+	opacity: 0.75;
+	transition: 0.25s;
+	text-align: center;
+
+	// Emulate fontawesome
+	font-weight: 900;
+	font-family: 'Font Awesome 6 Free';
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	display: var(--fa-display, inline-block);
+	font-style: normal;
+	font-variant: normal;
+	line-height: 1;
+	text-rendering: auto;
+}
+
+.dillerm-input-clear {
+	@extend .dillerm-input-icon-button;
+
+	&::before {
+		content: "\f00d"; // fa-xmark
+	}
+	&:hover {
+		color: red;
+		opacity: 1;
+	}
+}
+
+.dillerm-input-expand {
+	@extend .dillerm-input-icon-button;
+
+	&::before {
+		content: "\f107"; // fa-angle-down
+	}
+
+	&.expanded {
+		transform: rotate(180deg);
+	}
+}
