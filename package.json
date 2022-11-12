@@ -1,6 +1,6 @@
 {
 	"name": "@dillerm/webutils",
-	"version": "0.0.12",
+	"version": "0.0.13",
 	"main": "build/dillerm.umd.js",
 	"module": "build/dillerm.es.js",
 	"files": [
@@ -15,7 +15,6 @@
 		"release": "set DEBUG_MODE=true && vite build && sh _scripts/sync_libdev.sh && vite build && npm publish --access=public"
 	},
 	"dependencies": {
-		"fontawesome": "^5.6.3",
 		"vue": "^3.2.37"
 	},
 	"devDependencies": {
