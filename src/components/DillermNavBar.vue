@@ -2,8 +2,6 @@
 import { ref, reactive, computed, onMounted } from "vue"
 
 import fizzgig_svg_url from "../assets/fizzgig.svg?url";
-import github_svg_url from "../assets/github.svg?url";
-import gear_svg_url from "../assets/gear.svg?url";
 import { ColorGradient } from "../utils.js";
 import NavBarSvgBackground from "./NavBarSvgBackground.vue";
 import DillermConfigPanel from "./DillermConfigPanel.vue";

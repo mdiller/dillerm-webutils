@@ -12,14 +12,10 @@
 </template>
 
 <script>
-import CrossIcon from "../../assets/cross.svg?component";
 import { debounce } from '../../utils.js';
 
 export default {
 	name: 'dillerm-text',
-	components: {
-		CrossIcon
-	},
 	props: {
 		value: {
 			type: String,
