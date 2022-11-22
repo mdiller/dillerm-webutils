@@ -17,11 +17,17 @@
 			class="select-search-current"
 			v-if="selected_option && (!searchable || !focused)">
 			<img
+				v-if="selected_option.icon_type == ICON_TYPES.img || selected_option.icon_type == ICON_TYPES.styled"
 				class="option-icon"
-				v-if="selected_option.icon || selected_option.icon_style"
 				:src="selected_option.icon || TRANSPARENT_IMAGE"
 				:style="selected_option.icon_style">
-			<span :class="{ noicon: !(selected_option.icon || selected_option.icon_style) }">
+			<div
+				v-if="selected_option.icon_type == ICON_TYPES.fa"
+				class="option-icon">
+				<i :class="selected_option.icon">
+				</i>
+			</div>
+			<span :class="{ noicon: selected_option.icon_type == ICON_TYPES.none }">
 				{{selected_option.label || placeholder}}
 			</span>
 		</span>
@@ -31,14 +37,20 @@
 			</div>
 			<div 
 				v-for="(option, index) in actual_options"
-				:class="{ 'select-search-option': true, hover: (index == hovered_option_index), noicon: !(option.icon || option.icon_style), 'is-selected': option == selected_option }"
+				:class="{ 'select-search-option': true, hover: (index == hovered_option_index), noicon: option.icon_type == ICON_TYPES.none, 'is-selected': option == selected_option }"
 				@click.stop="selectOption(option)"
 				@mousedown.prevent>
 				<img
+					v-if="option.icon_type == ICON_TYPES.img || option.icon_type == ICON_TYPES.styled"
 					class="option-icon"
-					v-if="option.icon || option.icon_style"
 					:src="option.icon || TRANSPARENT_IMAGE"
 					:style="option.icon_style">
+				<div
+					v-if="option.icon_type == ICON_TYPES.fa"
+					class="option-icon">
+					<i :class="option.icon">
+					</i>
+				</div>
 				{{option.label}}
 			</div>
 		</div>
@@ -57,6 +69,13 @@
 
 <script>
 import { escapeRegex, debounce } from '../../utils.js';
+
+const ICON_TYPES = {
+	none: "None",
+	img: "Image",
+	styled: "JustStyle",
+	fa: "FontAwesome"
+}
 
 export default {
 	name: "dillerm-select",
@@ -123,6 +142,19 @@ export default {
 		}
 	},
 	methods: {
+		getIconType(option) {
+			if (!option.icon) {
+				return option.icon_style ? ICON_TYPES.styled : ICON_TYPES.none;
+			}
+			else {
+				if (!option.icon.includes("http") && option.icon.includes("fa-")) {
+					return ICON_TYPES.fa;
+				}
+				else {
+					return ICON_TYPES.img
+				}
+			}
+		},
 		compute_options_func() {	
 			if (this.options instanceof Function) {
 				this.options_func = this.options;
@@ -184,6 +216,9 @@ export default {
 				else if (newoptions.length == 0) {
 					self.status = "None Found";
 				}
+				newoptions.forEach(option => {
+					option.icon_type = this.getIconType(option);
+				})
 				self.actual_options = newoptions;
 			});
 		},
@@ -224,6 +259,7 @@ export default {
 	created() {		
 		this.debouncedRecreateOptions = debounce(this.recreateOptions, this.debounce_delay);
 		this.syncValueDown();
+		this.ICON_TYPES = ICON_TYPES;
 	}
 };
 </script>
@@ -310,6 +346,13 @@ $option-height: calc(var(--input-height) - (2 * var(--input-border-size)));
 		width: $option-height;
 		vertical-align: middle;
 		margin-right: var(--input-padding-rl);
+	}
+
+	div.option-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 22px;
 	}
 
 	.select-search-current {

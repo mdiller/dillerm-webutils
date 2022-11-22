@@ -252,7 +252,31 @@ $tooltip-fade-amount: 15%;
 	}
 }
 
+// EMULATE FONTAWESOME FOR USE IN @extend BELOW
+.dillerm-fa-solid,
+.dillerm-fa-brands {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: var(--fa-display, inline-block);
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+}
+
+.dillerm-fa-solid {
+    font-weight: 900;
+    font-family: 'Font Awesome 6 Free';
+}
+
+.dillerm-fa-brands {
+  font-weight: 400;
+    font-family: 'Font Awesome 6 Brands';
+}
+
 .dillerm-input-icon-button {
+	@extend .dillerm-fa-solid;
+
 	width: var(--input-icon-button-size);
 	height: var(--input-icon-button-size);
 	font-size: var(--input-icon-button-font-size);
@@ -265,17 +289,6 @@ $tooltip-fade-amount: 15%;
 	opacity: 0.75;
 	transition: 0.25s;
 	text-align: center;
-
-	// Emulate fontawesome
-	font-weight: 900;
-	font-family: 'Font Awesome 6 Free';
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-font-smoothing: antialiased;
-	display: var(--fa-display, inline-block);
-	font-style: normal;
-	font-variant: normal;
-	line-height: 1;
-	text-rendering: auto;
 }
 
 .dillerm-input-clear {
@@ -300,4 +313,109 @@ $tooltip-fade-amount: 15%;
 	&.expanded {
 		transform: rotate(180deg);
 	}
+}
+
+// LANGUAGE ICONS
+.fa-lang-javascript {
+  @extend .dillerm-fa-brands;
+  color: #ead64c;
+  &::before {
+    content: "\f3b8" /* fa-js */
+  }
+}
+
+.fa-lang-python {
+  @extend .dillerm-fa-brands;
+  color: #f9cd3f;
+  &::before {
+    content: "\f3e2" /* fa-python */
+  }
+}
+
+.fa-lang-csharp {
+  @extend .dillerm-fa-solid;
+  color: #7b3483;
+  &::before {
+    content: "\23" /* fa-hashtag */
+  }
+}
+
+.fa-lang-php {
+  @extend .dillerm-fa-brands;
+  color: #7a86b8;
+  &::before {
+    content: "\f457" /* fa-php */
+  }
+}
+
+.fa-lang-vue {
+  @extend .dillerm-fa-brands;
+  color: #40b682;
+  &::before {
+    content: "\f41f" /* fa-vuejs */
+  }
+}
+
+.fa-lang-react {
+  @extend .dillerm-fa-brands;
+  color: #00d7fa;
+  &::before {
+    content: "\f41b" /* fa-react */
+  }
+}
+
+.fa-lang-powershell {
+  @extend .dillerm-fa-solid;
+  color: #0274b9;
+  &::before {
+    content: "\f120" /* fa-terminal */
+  }
+}
+
+.fa-lang-bash {
+  @extend .dillerm-fa-solid;
+  color: #808080;
+  &::before {
+    content: "\f120" /* fa-terminal */
+  }
+}
+
+.fa-lang-css {
+  @extend .dillerm-fa-brands;
+  color: #1c86c4;
+  &::before {
+    content: "\f38b" /* fa-alt-css3 */
+  }
+}
+
+.fa-lang-html {
+  @extend .dillerm-fa-brands;
+  color: #eb6329;
+  &::before {
+    content: "\f13b" /* fa-html5 */
+  }
+}
+
+.fa-lang-cpp {
+  @extend .dillerm-fa-solid;
+  color: #005799;
+  &::before {
+    content: "\2b" /* fa-plus */
+  }
+}
+
+.fa-lang-java {
+  @extend .dillerm-fa-brands;
+  color: #e32b2c;
+  &::before {
+    content: "\f4e4" /* fa-java */
+  }
+}
+
+.fa-lang-sql {
+  @extend .dillerm-fa-solid;
+  color: #e56c04;
+  &::before {
+    content: "\f1c0" /* fa-database */
+  }
 }

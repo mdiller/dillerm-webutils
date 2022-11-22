@@ -1,38 +1,3 @@
-<script setup>
-
-import { ref } from "vue"
-import DillermNavBar from "./components/DillermNavBar.vue"
-import example_data from "/assets/example_parameters.json"
-
-import DillermColor from "./components/controls/DillermColor.vue"
-import DillermNumerical from "./components/controls/DillermNumerical.vue"
-import DillermCheckbox from "./components/controls/DillermCheckbox.vue";
-import DillermSelect from "./components/controls/DillermSelect.vue";
-import DillermSlider from "./components/controls/DillermSlider.vue";
-import DillermText from "./components/controls/DillermText.vue";
-
-const config = ref({
-	title: "WebUtils Demo",
-	github_url: "https://github.com/mdiller/",
-	parameters: example_data,
-	// parameters_callback: values => console.dir(values)
-});
-
-const example_values = ref({
-	number: 1,
-	color: "#00ff00",
-	boolean: true,
-	text: "",
-	option_value: "Example 1",
-	options: [ "Example 1", "Example 2", "Example 3" ]
-})
-
-function typingTriggered(value) {
-	console.log("user just typed: ", value);
-}
-
-</script>
-
 <template>
 	<DillermNavBar :config="config" />
 	<div id="content" class="dillerm dillerm-content">
@@ -80,9 +45,69 @@ function typingTriggered(value) {
 </template>
 
 <script>
+import DillermNavBar from "./components/DillermNavBar.vue"
+import example_data from "/assets/example_parameters.json"
 
+import DillermColor from "./components/controls/DillermColor.vue"
+import DillermNumerical from "./components/controls/DillermNumerical.vue"
+import DillermCheckbox from "./components/controls/DillermCheckbox.vue";
+import DillermSelect from "./components/controls/DillermSelect.vue";
+import DillermSlider from "./components/controls/DillermSlider.vue";
+import DillermText from "./components/controls/DillermText.vue";
 
-
+export default {
+	components: {
+		DillermColor,
+		DillermNumerical,
+		DillermCheckbox,
+		DillermSelect,
+		DillermSlider,
+		DillermText,
+		DillermNavBar
+	},
+	data() {
+		return {
+			config: {
+				title: "WebUtils Demo",
+				github_url: "https://github.com/mdiller/",
+				parameters: example_data,
+				// parameters_callback: values => console.dir(values)
+			},
+			example_values: {
+				number: 1,
+				color: "#00ff00",
+				boolean: true,
+				text: "",
+				option_value: "Example 1",
+				options: [ "Example 1", "Example 2", "Example 3" ]
+			}
+		}
+	},
+	methods: {
+		typingTriggered(value) {
+			console.log("user just typed: ", value);
+		},
+		loadLanguages() {
+			this.example_values.options = Array.from(document.styleSheets)
+				.flatMap(sheet => Array.from(sheet.cssRules))
+				.filter(rule => rule.selectorText 
+					&& rule.selectorText.startsWith(".fa-lang-")
+					&& !rule.selectorText.includes("::"))
+				.map(rule => {
+					var lang = rule.selectorText.replace(".fa-lang-", "");
+					return {
+						value: lang,
+						label: lang,
+						icon: `fa-lang-${lang}`
+					}
+			});
+			this.example_values.option_value = this.example_values.options[0].value;
+		}
+	},
+	created() {
+		this.loadLanguages();
+	}
+}
 
 </script>
 
