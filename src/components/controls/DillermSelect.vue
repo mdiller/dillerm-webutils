@@ -353,6 +353,15 @@ $option-height: calc(var(--input-height) - (2 * var(--input-border-size)));
 		}
 	}
 
+	&:has(.option-icon i) {
+		.option-icon {
+			margin-right: 0px;
+		}
+		.select-search-current span {
+			padding-left: 0px;
+		}
+	}
+
 	.option-icon {
 		height: $option-height;
 		width: $option-height;
