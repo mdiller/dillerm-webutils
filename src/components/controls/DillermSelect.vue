@@ -31,27 +31,29 @@
 				{{selected_option.label || placeholder}}
 			</span>
 		</span>
-		<div v-if="focused" @mousedown.prevent>
-			<div class="select-search-status" v-if="actual_options.length == 0" @mousedown.prevent>
-				{{status}}
-			</div>
-			<div 
-				v-for="(option, index) in actual_options"
-				:class="{ 'select-search-option': true, hover: (index == hovered_option_index), noicon: option.icon_type == ICON_TYPES.none, 'is-selected': option == selected_option }"
-				@click.stop="selectOption(option)"
-				@mousedown.prevent>
-				<img
-					v-if="option.icon_type == ICON_TYPES.img || option.icon_type == ICON_TYPES.styled"
-					class="option-icon"
-					:src="option.icon || TRANSPARENT_IMAGE"
-					:style="option.icon_style">
-				<div
-					v-if="option.icon_type == ICON_TYPES.fa"
-					class="option-icon">
-					<i :class="option.icon">
-					</i>
+		<div class="select-options" v-if="focused" @mousedown.prevent>
+			<div>
+				<div class="select-search-status" v-if="actual_options.length == 0" @mousedown.prevent>
+					{{status}}
 				</div>
-				{{option.label}}
+				<div 
+					v-for="(option, index) in actual_options"
+					:class="{ 'select-search-option': true, hover: (index == hovered_option_index), noicon: option.icon_type == ICON_TYPES.none, 'is-selected': option == selected_option }"
+					@click.stop="selectOption(option)"
+					@mousedown.prevent>
+					<img
+						v-if="option.icon_type == ICON_TYPES.img || option.icon_type == ICON_TYPES.styled"
+						class="option-icon"
+						:src="option.icon || TRANSPARENT_IMAGE"
+						:style="option.icon_style">
+					<div
+						v-if="option.icon_type == ICON_TYPES.fa"
+						class="option-icon">
+						<i :class="option.icon">
+						</i>
+					</div>
+					{{option.label}}
+				</div>
 			</div>
 		</div>
 		<i	
@@ -267,6 +269,11 @@ export default {
 <style lang="scss">
 $option-height: calc(var(--input-height) - (2 * var(--input-border-size)));
 
+@keyframes options-anim {
+	0% { transform: translateY(-100%); }
+	100% { transform: translateY(0%); }
+}
+
 .dillerm-select {
 	position: relative;
 	text-align: left;
@@ -294,21 +301,26 @@ $option-height: calc(var(--input-height) - (2 * var(--input-border-size)));
 		}
 	}
 
-	& > div {
+	& > .select-options {
+		overflow-y: hidden;
 		position: absolute;
-		background: white;
 		top: 100%;
 		left: 0;
 		right: 0;
-		border-right: var(--input-border);
-		border-left: var(--input-border);
-		border-bottom: var(--input-border);
-		border-radius: 0 0 var(--input-border-radius) var(--input-border-radius);
-		overflow-y: auto;
-		overflow-x: hidden;
-		max-height: 300px;
 		z-index: 100;
-		background: var(--input-background);
+
+		& > div {
+			animation-name: options-anim;
+			animation-duration: calc(var(--input-transition-time) / 2);
+			background: var(--input-background);
+			border-right: var(--input-border);
+			border-left: var(--input-border);
+			border-bottom: var(--input-border);
+			border-radius: 0 0 var(--input-border-radius) var(--input-border-radius);
+			overflow-y: auto;
+			overflow-x: hidden;
+			max-height: 300px;
+		}
 	}
 
 	&:hover,
