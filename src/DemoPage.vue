@@ -73,7 +73,7 @@ export default {
 		return {
 			config: {
 				title: "WebUtils Demo",
-				github_url: "https://github.com/mdiller/",
+				github_url: "https://github.com/mdiller/dillerm-webutils",
 				parameters: example_data,
 				scale_nav: false
 				// parameters_callback: values => console.dir(values)
