@@ -40,16 +40,20 @@
 			<dillerm-checkbox
 				v-model:value="example_values.boolean"
 			/>
+			<br/>
+			<dillerm-checkbox
+				v-model:value="config.scale_nav"
+			/>
 		</div>
 	</div>
 </template>
 
 <script>
-import DillermNavBar from "./components/DillermNavBar.vue"
-import example_data from "/assets/example_parameters.json"
+import DillermNavBar from "./components/DillermNavBar.vue";
+import example_data from "/assets/example_parameters.json";
 
-import DillermColor from "./components/controls/DillermColor.vue"
-import DillermNumerical from "./components/controls/DillermNumerical.vue"
+import DillermColor from "./components/controls/DillermColor.vue";
+import DillermNumerical from "./components/controls/DillermNumerical.vue";
 import DillermCheckbox from "./components/controls/DillermCheckbox.vue";
 import DillermSelect from "./components/controls/DillermSelect.vue";
 import DillermSlider from "./components/controls/DillermSlider.vue";
@@ -71,6 +75,7 @@ export default {
 				title: "WebUtils Demo",
 				github_url: "https://github.com/mdiller/",
 				parameters: example_data,
+				scale_nav: false
 				// parameters_callback: values => console.dir(values)
 			},
 			example_values: {

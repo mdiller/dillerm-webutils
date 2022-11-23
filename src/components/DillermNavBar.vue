@@ -1,48 +1,3 @@
-<script setup>
-import { ref, reactive, computed, onMounted } from "vue"
-
-import fizzgig_svg_url from "../assets/fizzgig.svg?url";
-import { ColorGradient } from "../utils.js";
-import NavBarSvgBackground from "./NavBarSvgBackground.vue";
-import DillermConfigPanel from "./DillermConfigPanel.vue";
-
-const props = defineProps({
-	config: Object
-});
-
-// window.addEventListener("load", () => {
-// 	console.log("boops");
-// 	var color1 = getComputedStyle(document.documentElement).getPropertyValue("--background-color3");
-// 	var color2 = getComputedStyle(document.documentElement).getPropertyValue("--background-color4");
-// 	console.log(color1, color2);
-// 	nav_gradient.colors = [color1, color2];
-// });
-
-// const nav_gradient = reactive(new ColorGradient(["#292b2f", "#202225"]));
-const nav_gradient = reactive(new ColorGradient(["#1b1f27", "#15181e"]));
-
-const show_config = ref(false);
-
-onMounted(() => {
-	// Loading overlay
-	var body = document.querySelector("body");
-	var overlay = document.createElement("div");
-	overlay.classList.add("dillerm-loading-overlay");
-	body.appendChild(overlay);
-	setTimeout(() => body.classList.add("dillerm-loaded"), 200);
-	setTimeout(() => body.removeChild(overlay), 2000);
-
-	// Title
-	var head = document.querySelector("head");
-	if (props.config.title && !head.querySelector("title")) {
-		var title = document.createElement("title");
-		title.innerText = props.config.title;
-		head.appendChild(title);
-	}
-});
-
-</script>
-
 <template>
 	<DillermConfigPanel
 		v-if="config.parameters"
@@ -50,10 +5,12 @@ onMounted(() => {
 		:config="config" />
 	<div class="dillerm dillerm-nav-bar">
 		<NavBarSvgBackground
+			v-if="!config.scale_nav"
 			:width="2500"
 			:height="70"
 			:color_gradient="nav_gradient"
 			:triangle_count_y="3"/>
+		<NavBarScalesBackground v-if="config.scale_nav"/>
 		<div v-if="config.title" class="title-container">
 			<div class="title">
 				{{config.title}}
@@ -73,6 +30,61 @@ onMounted(() => {
 		</div>
 	</div>
 </template>
+
+<script>
+import fizzgig_svg_url from "../assets/fizzgig.svg?url";
+import { ColorGradient } from "../utils.js";
+import NavBarSvgBackground from "./NavBarSvgBackground.vue";
+import NavBarScalesBackground from "./NavBarScalesBackground.vue";
+import DillermConfigPanel from "./DillermConfigPanel.vue";
+
+// window.addEventListener("load", () => {
+// 	console.log("boops");
+// 	var color1 = getComputedStyle(document.documentElement).getPropertyValue("--background-color3");
+// 	var color2 = getComputedStyle(document.documentElement).getPropertyValue("--background-color4");
+// 	console.log(color1, color2);
+// 	nav_gradient.colors = [color1, color2];
+// });
+
+export default {
+	name: 'dillerm-navbar',
+	components: {
+		DillermConfigPanel,
+		NavBarSvgBackground,
+		NavBarScalesBackground
+	},
+	props: {
+		config: {
+			type: Object,
+			required: true
+		}
+	},
+	data() {
+		return {
+			nav_gradient: new ColorGradient(["#1b1f27", "#15181e"]),
+			show_config: false
+		};
+	},
+	mounted() {
+		// Loading overlay
+		var body = document.querySelector("body");
+		var overlay = document.createElement("div");
+		overlay.classList.add("dillerm-loading-overlay");
+		body.appendChild(overlay);
+		setTimeout(() => body.classList.add("dillerm-loaded"), 200);
+		setTimeout(() => body.removeChild(overlay), 2000);
+
+		// Title
+		var head = document.querySelector("head");
+		if (this.config.title && !head.querySelector("title")) {
+			var title = document.createElement("title");
+			title.innerText = this.config.title;
+			head.appendChild(title);
+		}
+	}
+}
+
+</script>
 
 <style lang="scss">
 
@@ -117,7 +129,8 @@ body:not(.dillerm-loaded) .dillerm-loading-overlay {
 .dillerm-nav-bar {
 	position: relative;
 	z-index: 1001;
-	overflow: hidden;
+	overflow-y: visible;
+	overflow-x: clip;
 	height: var(--navbar-height);
 	width: 100%;
 	/* background-image: url("/assets/lowpoly.svg");

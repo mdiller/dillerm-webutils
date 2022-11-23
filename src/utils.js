@@ -142,6 +142,12 @@ function getColorFromGradient(percent, gradient) {
 	if (gradient.length == 1) {
 		gradient = [ gradient[0], gradient[0] ]
 	}
+	if (percent > 1) {
+		percent = 1;
+	}
+	if (percent < 0) {
+		percent = 0;
+	}
 	var index = Math.floor((percent * (gradient.length - 1)) - 0.0001);
 	if (index < 0) {
 		index = 0;
