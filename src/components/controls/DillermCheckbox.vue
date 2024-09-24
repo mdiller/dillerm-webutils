@@ -70,6 +70,13 @@ export default {
 	&:focus-within,
 	&:hover {
 		background: var(--input-hover-color);
+
+		span {
+			border-color: var(--highlight-color1);
+		}
+		i {
+			color: var(--highlight-color1);
+		}
 	}
 
 	input {
@@ -83,6 +90,7 @@ export default {
 		top: 0;
 		bottom: 0;
 		cursor: pointer;
+		transition: color 0.5;
 	}
 
 
@@ -97,6 +105,7 @@ export default {
 		transform: rotate(45deg);
 		transform-origin: bottom left;
 		animation: checkbox-check 75ms forwards;
+		transition: border-color 0.5;
 	}
 
 	.anti-check {

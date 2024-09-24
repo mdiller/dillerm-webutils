@@ -205,6 +205,7 @@ export default {
 
 .dillerm-slider {
 	position: relative;
+
 	& {
 		border: var(--input-border);
 		border-radius: var(--input-border-radius);
@@ -283,6 +284,9 @@ export default {
 
 		.slider-bar-back {
 			position: relative;
+			& > * {
+				height: 100%;
+			}
 		}
 
 		.slider-bar-left {

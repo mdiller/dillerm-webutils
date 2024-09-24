@@ -14,9 +14,7 @@
 		</div>
 		<div id="demoparamcontainer">
 			<dillerm-color v-model:value="example_values.color" />
-			<br/>
 			<dillerm-numerical v-model:value="example_values.number" />
-			<br/>
 			<dillerm-select 
 				v-model:value="example_values.option_value"
 				:options="example_values.options"
@@ -24,26 +22,75 @@
 				:nullable="true"
 				:searchable="true"
 			/>
-			<br/>
 			<dillerm-text 
 				v-model:value="example_values.text"
 				:clearable="true"
 				:debounce_delay="500"
 				@typing="typingTriggered"
 			/>
-			<br/>
 			<dillerm-slider
 				v-model:value="example_values.number"
 				:throttle="500"
 			/>
-			<br/>
 			<dillerm-checkbox
 				v-model:value="example_values.boolean"
 			/>
-			<br/>
 			<dillerm-checkbox
 				v-model:value="config.scale_nav"
 			/>
+			<dillerm-button
+				:onClick="clickTest"
+				:icon="'fa-solid fa-bell'"
+			/>
+			<br/>
+			<dillerm-row
+				:label="'Example Label'">
+				<dillerm-checkbox
+					v-model:value="config.scale_nav"
+				/>
+				<dillerm-slider
+					v-model:value="example_values.number"
+					:throttle="500"
+					:is_percent="config.scale_nav"
+				/>
+			</dillerm-row>
+			<dillerm-row>
+				<dillerm-text
+					v-model:value="example_values.text"
+					:clearable="true"
+					:debounce_delay="500"
+					@typing="typingTriggered"
+				/>
+				<dillerm-select
+					v-model:value="example_values.option_value"
+					:options="example_values.options"
+					:emitvalue="true"
+					:nullable="true"
+					:searchable="true"
+				/>
+			</dillerm-row>
+			<dillerm-row>
+				<dillerm-checkbox
+					v-model:value="config.enable_thing"
+				/>
+				<dillerm-color v-model:value="example_values.color" />
+				<dillerm-numerical v-model:value="example_values.number" />
+			</dillerm-row>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
 		</div>
 	</div>
 </template>
@@ -58,6 +105,8 @@ import DillermCheckbox from "./components/controls/DillermCheckbox.vue";
 import DillermSelect from "./components/controls/DillermSelect.vue";
 import DillermSlider from "./components/controls/DillermSlider.vue";
 import DillermText from "./components/controls/DillermText.vue";
+import DillermButton from "./components/controls/DillermButton.vue";
+import DillermRow from "./components/controls/DillermRow.vue";
 
 export default {
 	components: {
@@ -67,7 +116,9 @@ export default {
 		DillermSelect,
 		DillermSlider,
 		DillermText,
-		DillermNavBar
+		DillermNavBar,
+		DillermButton,
+		DillermRow
 	},
 	data() {
 		return {
@@ -75,7 +126,8 @@ export default {
 				title: "WebUtils Demo",
 				github_url: "https://github.com/mdiller/dillerm-webutils",
 				parameters: example_data,
-				scale_nav: false
+				scale_nav: false,
+				enable_thing: true
 				// parameters_callback: values => console.dir(values)
 			},
 			example_values: {
@@ -107,6 +159,10 @@ export default {
 					}
 			});
 			this.example_values.option_value = this.example_values.options[0].value;
+		},
+		clickTest() {
+			this.example_values.text += "hello ";
+			console.log("clicked!");
 		}
 	},
 	created() {
@@ -116,7 +172,7 @@ export default {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 .project-box {
 	position: relative;
@@ -138,6 +194,10 @@ export default {
 
 #demoparamcontainer {
 	max-width: 300px;
+
+	& > * {
+		margin-bottom: 10px;
+	}
 }
 
 </style>
